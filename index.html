@@ -71,7 +71,8 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .add-decl-row{display:flex;gap:8px;margin-top:8px;}
 .add-decl-src{flex:1;border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:8px 10px;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--deep);background:white;outline:none;}
 .add-decl-src::placeholder{color:#b0a090;}
-.add-decl-btn{background:var(--gold);border:none;border-radius:8px;padding:8px 16px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:var(--deep);cursor:pointer;white-space:nowrap;}
+.add-decl-btn-full{display:block;width:100%;margin-top:10px;background:var(--earth);border:none;border-radius:10px;padding:14px 16px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--cream);cursor:pointer;-webkit-appearance:none;appearance:none;touch-action:manipulation;}
+.add-decl-btn-full:active{opacity:.75;}
 
 /* ── TODAY / CHECK-INS ── */
 .progress-wrap{background:var(--parchment);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:18px;display:flex;align-items:center;gap:18px;margin-bottom:20px;}
@@ -152,7 +153,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .task-finish-btn:active{background:rgba(92,61,46,.15);}
 .atf-longterm-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px;color:var(--earth);font-family:'Josefin Sans',sans-serif;letter-spacing:.5px;}
 .atf-longterm-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
-.add-decl-btn{position:relative;z-index:10;}
+.add-decl-btn-old{position:relative;z-index:10;}
 
 /* ── FARM ── */
 .farm-card{background:white;border:1px solid rgba(122,158,126,.22);border-radius:12px;padding:18px;margin-bottom:14px;}
@@ -298,11 +299,11 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     <textarea id="newDeclText" placeholder="Write a declaration the Lord has given you today...&#10;e.g. I am healed. I am provided for. This month I will complete what I start."></textarea>
     <div class="add-decl-row">
       <input class="add-decl-src" id="newDeclSrc" type="text" placeholder="Source (e.g. Psalm 23, Holy Spirit, 7 Apr)">
-      <button type="button" class="add-decl-btn" onclick="addDeclaration()">Add ✦</button>
     </div>
+    <button type="button" id="addDeclBtn" class="add-decl-btn-full">+ Add Declaration ✦</button>
   </div>
 
-  <button class="declare-btn" id="declareBtn" onclick="declare()">✦ I Declare All These Truths Over My Life Today</button>
+  <button type="button" class="declare-btn" id="declareBtn">✦ I Declare All These Truths Over My Life Today</button>
 </div>
 
 
@@ -556,6 +557,12 @@ async function boot(){
   updateProgress();
   // Wire up Enter key on declaration src input
   document.getElementById('newDeclSrc').addEventListener('keydown',e=>{if(e.key==='Enter')addDeclaration();});
+  // Wire up Add Declaration button - use pointerdown + preventDefault to stop textarea blur
+  const addDeclBtn=document.getElementById('addDeclBtn');
+  addDeclBtn.addEventListener('pointerdown',function(e){e.preventDefault();});
+  addDeclBtn.addEventListener('click',function(e){e.preventDefault();addDeclaration();});
+  // Wire up Declare button
+  document.getElementById('declareBtn').addEventListener('click',function(e){e.preventDefault();declare();});
 }
 
 function defaultTasks(){
@@ -602,13 +609,12 @@ function declare(){
 function addDeclaration(){
   const textEl=document.getElementById('newDeclText');
   const srcEl=document.getElementById('newDeclSrc');
-  const text=(textEl.value||'').trim();
-  const src=(srcEl.value||'').trim();
+  const text=String(textEl.value||'').trim();
+  const src=String(srcEl.value||'').trim();
   if(!text){showToast('Write a declaration first');return;}
   state.todayDeclarations.push({id:uid(),text,source:src||'Today',ts:new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'})});
   textEl.value='';
   srcEl.value='';
-  textEl.style.height='auto';
   renderTodayDeclarations();
   persist();
   showToast('Declaration added ✦');
