@@ -17,22 +17,30 @@
 :root{--gold:#C9A84C;--gold-light:#E8C97A;--earth:#5C3D2E;--cream:#FAF6EE;--parchment:#F0E8D5;--sage:#7A9E7E;--deep:#1A120A;--shadow:rgba(92,61,46,0.15);}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
-body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-serif;min-height:100vh;overflow-x:hidden;background-image:radial-gradient(ellipse at 20% 10%,rgba(201,168,76,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 90%,rgba(122,158,126,.08) 0%,transparent 50%);}
+body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-serif;min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(ellipse at 20% 10%,rgba(201,168,76,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 90%,rgba(122,158,126,.08) 0%,transparent 50%);}
+
+/* ── TAB BAR ── */
 .tab-bar{position:fixed;bottom:0;left:0;right:0;background:var(--earth);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -4px 20px rgba(0,0,0,.2);}
 .tab-btn{flex:1;padding:12px 4px 10px;border:none;background:none;color:rgba(240,232,213,.45);cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;transition:color .2s;}
 .tab-btn.active{color:var(--gold);}
 .tab-icon{font-size:20px;line-height:1;}
+
+/* ── PAGES ── */
 .page{display:none;padding:24px 18px 110px;max-width:700px;margin:0 auto;}
 .page.active{display:block;animation:fadeUp .3s ease both;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HEADERS ── */
 .page-header{text-align:center;margin-bottom:22px;padding-top:16px;}
 .ornament{font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
-.page-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7vw,44px);font-weight:300;color:var(--earth);line-height:1.1;}
+.page-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,7vw,42px);font-weight:300;color:var(--earth);line-height:1.1;}
 .page-header h1 em{font-style:italic;color:var(--gold);}
 .date-line{font-size:10px;letter-spacing:2.5px;color:var(--sage);text-transform:uppercase;margin-top:6px;}
 .section-label{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--earth);margin:22px 0 12px;display:flex;align-items:center;gap:8px;}
 .section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.35;}
-/* DECLARATIONS */
+
+/* ── DECLARATIONS PAGE ── */
 .decl-hero{background:linear-gradient(145deg,var(--earth),#2E1507);border-radius:20px;padding:26px 22px;margin-bottom:20px;position:relative;overflow:hidden;}
 .decl-hero::before{content:'✦';position:absolute;font-size:200px;color:rgba(201,168,76,.04);top:-40px;right:-30px;line-height:1;pointer-events:none;}
 .decl-source{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
@@ -49,7 +57,23 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .decl-ref{font-size:10px;letter-spacing:2px;color:#8a7a6a;text-transform:uppercase;}
 .declare-btn{width:100%;background:var(--gold);border:none;border-radius:12px;padding:16px;font-family:'Josefin Sans',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--deep);cursor:pointer;margin-top:20px;transition:background .2s;}
 .declare-btn.declared{background:var(--sage);color:white;}
-/* TODAY */
+
+/* ── TODAY'S DECLARATIONS (custom, editable) ── */
+.today-decl-card{background:white;border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;position:relative;}
+.today-decl-card.received{border-left:4px solid var(--gold);}
+.today-decl-card .decl-body{flex:1;}
+.today-decl-card .decl-body p{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--earth);line-height:1.55;margin-bottom:4px;}
+.today-decl-card .decl-body small{font-size:10px;letter-spacing:1.5px;color:var(--sage);text-transform:uppercase;}
+.decl-del-btn{background:none;border:none;color:#c0a898;font-size:20px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;margin-top:2px;}
+.add-decl-area{background:var(--parchment);border-radius:14px;padding:16px;margin-bottom:6px;}
+.add-decl-area textarea{width:100%;border:none;outline:none;background:transparent;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--earth);resize:none;min-height:60px;line-height:1.6;}
+.add-decl-area textarea::placeholder{color:#b0a090;}
+.add-decl-row{display:flex;gap:8px;margin-top:8px;}
+.add-decl-src{flex:1;border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:8px 10px;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--deep);background:white;outline:none;}
+.add-decl-src::placeholder{color:#b0a090;}
+.add-decl-btn{background:var(--gold);border:none;border-radius:8px;padding:8px 16px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:var(--deep);cursor:pointer;white-space:nowrap;}
+
+/* ── TODAY / CHECK-INS ── */
 .progress-wrap{background:var(--parchment);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:18px;display:flex;align-items:center;gap:18px;margin-bottom:20px;}
 .ring-wrap{position:relative;width:80px;height:80px;flex-shrink:0;}
 .ring-wrap svg{transform:rotate(-90deg);}
@@ -58,36 +82,67 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .ring-pct{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--earth);line-height:1;}
 .ring-sub{font-size:7px;letter-spacing:1px;color:var(--sage);text-transform:uppercase;margin-top:2px;}
-.progress-words h3{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--earth);margin-bottom:4px;}
+.progress-words h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--earth);margin-bottom:4px;}
 .progress-words p{font-size:12px;color:#6a5a4a;line-height:1.6;}
 .checkin-card{background:white;border-radius:14px;padding:18px;margin-bottom:14px;border:1px solid rgba(201,168,76,.15);}
 .checkin-card.morning{border-top:3px solid var(--gold);}.checkin-card.evening{border-top:3px solid var(--sage);}
 .checkin-card h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--earth);margin-bottom:14px;}
 .checkin-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;cursor:pointer;padding:8px 10px;border-radius:10px;transition:background .15s;}
 .checkin-item:active{background:var(--parchment);}
-.cb-box{width:20px;height:20px;min-width:20px;border:2px solid var(--gold);border-radius:5px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:white;margin-top:1px;}
+.cb-box{width:20px;height:20px;min-width:20px;border:2px solid var(--gold);border-radius:5px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:white;margin-top:2px;}
 .cb-sage{border-color:var(--sage);}
 .cb-box.checked{background:var(--gold);border-color:var(--gold);}
 .cb-box.checked::after{content:'✓';color:white;font-size:12px;font-weight:bold;}
 .cb-sage.checked{background:var(--sage);border-color:var(--sage);}
 .cb-label{font-size:13px;line-height:1.5;color:var(--deep);}
 .checkin-item.done .cb-label{color:var(--sage);text-decoration:line-through;text-decoration-color:rgba(122,158,126,.4);}
-.asgn-card{background:white;border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:18px 18px 18px 22px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start;position:relative;overflow:hidden;}
-.asgn-card.complete{opacity:.5;background:var(--parchment);}
-.asgn-accent{position:absolute;left:0;top:0;bottom:0;width:4px;}
-.acc-g{background:var(--gold);}.acc-e{background:var(--earth);}.acc-s{background:var(--sage);}
-.asgn-icon{font-size:22px;min-width:30px;text-align:center;margin-top:2px;}
-.asgn-body{flex:1;}
-.asgn-title{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--earth);margin-bottom:4px;}
-.asgn-desc{font-size:13px;color:#5a4a3a;line-height:1.55;}
-.asgn-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+
+/* ── JOURNAL BLOCK (after altar check-ins) ── */
+.journal-block{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(122,158,126,.06));border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:18px;margin-bottom:20px;}
+.journal-block .jb-label{font-size:10px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;font-weight:600;}
+.journal-block textarea{width:100%;border:none;outline:none;background:transparent;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--earth);resize:none;min-height:90px;line-height:1.7;}
+.journal-block textarea::placeholder{color:#c0a898;font-style:italic;}
+.journal-block .jb-save{display:inline-flex;align-items:center;gap:4px;font-size:10px;letter-spacing:1px;color:var(--sage);text-transform:uppercase;margin-top:4px;opacity:0;transition:opacity .4s;}
+.journal-block .jb-save.show{opacity:1;}
+
+/* ── TASKS ── */
+.task-card{background:white;border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:16px 16px 16px 20px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;position:relative;overflow:hidden;transition:opacity .3s;}
+.task-card.complete{opacity:.45;background:var(--parchment);}
+.task-accent{position:absolute;left:0;top:0;bottom:0;width:4px;}
+.ta-g{background:var(--gold);}.ta-e{background:var(--earth);}.ta-s{background:var(--sage);}
+.task-toggle{width:22px;height:22px;min-width:22px;border:2px solid var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:white;transition:all .2s;margin-top:2px;flex-shrink:0;}
+.task-toggle.checked{background:var(--sage);border-color:var(--sage);}
+.task-toggle.checked::after{content:'✓';color:white;font-size:12px;font-weight:bold;}
+.task-body{flex:1;min-width:0;}
+.task-title-input{width:100%;border:none;outline:none;background:transparent;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--earth);font-family:'Josefin Sans',sans-serif;text-transform:uppercase;}
+.task-title-input.done-text{color:var(--sage);text-decoration:line-through;}
+.task-desc-input{width:100%;border:none;outline:none;background:transparent;font-size:13px;color:#5a4a3a;font-family:'Josefin Sans',sans-serif;line-height:1.5;margin-top:4px;resize:none;min-height:20px;}
+.task-meta{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center;}
 .tag{font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;font-weight:600;}
 .tg{background:rgba(201,168,76,.14);color:var(--gold);border:1px solid rgba(201,168,76,.28);}
 .te{background:rgba(92,61,46,.1);color:var(--earth);border:1px solid rgba(92,61,46,.2);}
 .ts{background:rgba(122,158,126,.14);color:var(--sage);border:1px solid rgba(122,158,126,.28);}
-.asgn-toggle{background:none;border:2px solid var(--gold);border-radius:50%;width:30px;height:30px;min-width:30px;cursor:pointer;color:var(--gold);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:2px;}
-.asgn-card.complete .asgn-toggle{background:var(--sage);border-color:var(--sage);color:white;}
-/* FARM */
+.task-del{background:none;border:none;color:#c0a898;font-size:18px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;margin-top:2px;}
+
+/* Add task form */
+.add-task-form{background:var(--parchment);border-radius:14px;padding:16px;margin-bottom:16px;border:1px dashed rgba(201,168,76,.35);}
+.add-task-form .atf-label{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;font-weight:600;}
+.atf-row{display:flex;gap:8px;margin-bottom:8px;}
+.atf-input{flex:1;border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:10px 12px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--deep);background:white;outline:none;}
+.atf-input::placeholder{color:#b0a090;}
+.atf-color{width:38px;height:38px;border:1px solid rgba(201,168,76,.3);border-radius:8px;background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.atf-color.sel-g{background:rgba(201,168,76,.2);border-color:var(--gold);}
+.atf-color.sel-e{background:rgba(92,61,46,.15);border-color:var(--earth);}
+.atf-color.sel-s{background:rgba(122,158,126,.2);border-color:var(--sage);}
+.atf-desc{width:100%;border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:10px 12px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--deep);background:white;outline:none;margin-bottom:8px;}
+.atf-desc::placeholder{color:#b0a090;}
+.atf-tag-input{flex:1;border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:8px 10px;font-family:'Josefin Sans',sans-serif;font-size:12px;color:var(--deep);background:white;outline:none;}
+.atf-tag-input::placeholder{color:#b0a090;}
+.atf-submit{width:100%;background:var(--earth);border:none;border-radius:10px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--cream);cursor:pointer;margin-top:4px;}
+.add-task-toggle{width:100%;background:none;border:1.5px dashed rgba(201,168,76,.4);border-radius:12px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);cursor:pointer;margin-top:4px;transition:background .2s;}
+.add-task-toggle:active{background:rgba(201,168,76,.08);}
+
+/* ── FARM ── */
 .farm-card{background:white;border:1px solid rgba(122,158,126,.22);border-radius:12px;padding:18px;margin-bottom:14px;}
 .farm-card h4{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage);margin-bottom:10px;}
 .farm-ta{width:100%;border:none;outline:none;background:var(--parchment);border-radius:8px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--deep);resize:none;min-height:80px;line-height:1.6;}
@@ -98,7 +153,8 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .slot-time{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:var(--earth);}
 .slot-label{font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--sage);margin-top:2px;}
 .slot-dot{width:6px;height:6px;border-radius:50%;margin:4px auto 0;}
-/* STAND */
+
+/* ── STAND ── */
 .stand-hero{background:linear-gradient(135deg,#0F2217,#1A3A22);border-radius:20px;padding:26px 20px;margin-bottom:20px;}
 .stand-verse{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4vw,20px);font-style:italic;color:var(--cream);line-height:1.65;margin-bottom:8px;}
 .stand-ref{font-size:10px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;}
@@ -109,11 +165,12 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .stand-chip span{flex:1;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--deep);}
 .stand-chip small{font-size:10px;color:#b0a090;letter-spacing:1px;}
 .stand-chip button{background:none;border:none;color:#b0a090;font-size:18px;cursor:pointer;}
-/* DASHBOARD */
+
+/* ── DASHBOARD ── */
 .streak-banner{background:linear-gradient(145deg,var(--earth),#2E1507);border-radius:20px;padding:24px 22px;margin-bottom:20px;display:flex;align-items:center;gap:20px;}
 .streak-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:600;color:var(--gold);line-height:1;min-width:80px;text-align:center;}
 .streak-info h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream);margin-bottom:6px;}
-.streak-info p{font-size:11px;color:rgba(240,232,213,.6);letter-spacing:.5px;line-height:1.6;}
+.streak-info p{font-size:11px;color:rgba(240,232,213,.6);line-height:1.6;}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
 .stat-card{background:white;border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:18px;text-align:center;}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--earth);line-height:1;}
@@ -123,7 +180,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .heatmap-day{width:14px;height:14px;border-radius:3px;background:var(--parchment);cursor:pointer;transition:transform .1s;}
 .heatmap-day:active{transform:scale(1.3);}
 .hd-1{background:rgba(201,168,76,.25);}.hd-2{background:rgba(201,168,76,.5);}.hd-3{background:rgba(201,168,76,.75);}.hd-4{background:var(--gold);}
-.history-item{background:white;border:1px solid rgba(201,168,76,.15);border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;transition:box-shadow .2s;}
+.history-item{background:white;border:1px solid rgba(201,168,76,.15);border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;}
 .history-item:active{box-shadow:0 4px 16px var(--shadow);}
 .history-date{font-size:10px;letter-spacing:2px;color:var(--sage);text-transform:uppercase;margin-bottom:6px;}
 .history-summary{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--earth);margin-bottom:8px;}
@@ -132,12 +189,13 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .pg{background:rgba(201,168,76,.14);color:var(--gold);border:1px solid rgba(201,168,76,.28);}
 .ps{background:rgba(122,158,126,.14);color:var(--sage);border:1px solid rgba(122,158,126,.28);}
 .pe{background:rgba(92,61,46,.1);color:var(--earth);border:1px solid rgba(92,61,46,.2);}
-/* MODAL */
+
+/* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(26,18,10,.7);z-index:200;display:none;align-items:flex-end;}
 .modal-overlay.open{display:flex;}
-.modal-box{background:var(--cream);border-radius:24px 24px 0 0;padding:24px 20px 50px;max-height:85vh;overflow-y:auto;width:100%;animation:slideUp .3s ease;}
+.modal-box{background:var(--cream);border-radius:24px 24px 0 0;padding:24px 20px 50px;max-height:88vh;overflow-y:auto;width:100%;animation:slideUp .3s ease;}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-close{float:right;background:none;border:none;font-size:26px;color:var(--earth);cursor:pointer;line-height:1;margin-bottom:4px;}
+.modal-close{float:right;background:none;border:none;font-size:26px;color:var(--earth);cursor:pointer;line-height:1;}
 .modal-date-lbl{font-size:10px;letter-spacing:2px;color:var(--sage);text-transform:uppercase;margin-bottom:6px;}
 .modal-heading{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--earth);margin-bottom:18px;}
 .modal-section{margin-bottom:18px;}
@@ -148,9 +206,12 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .modal-list li .tick{flex-shrink:0;width:16px;height:16px;border-radius:4px;border:1.5px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:10px;}
 .modal-list li.done .tick{background:var(--sage);border-color:var(--sage);color:white;}
 .modal-note{background:var(--parchment);border-radius:8px;padding:12px;font-size:13px;color:var(--deep);line-height:1.6;font-style:italic;margin-top:4px;}
+.modal-decl-item{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--earth);padding:6px 0;border-bottom:1px solid rgba(240,232,213,.8);line-height:1.5;}
+.modal-decl-item:last-child{border-bottom:none;}
 .modal-people{display:flex;flex-wrap:wrap;gap:6px;}
 .modal-person{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);border-radius:20px;padding:5px 12px;font-size:13px;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--earth);}
-/* TOAST & EMPTY */
+
+/* ── TOAST & EMPTY ── */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--earth);color:var(--cream);padding:10px 22px;border-radius:30px;font-size:12px;letter-spacing:1px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:300;white-space:nowrap;}
 .toast.show{opacity:1;}
 .empty-state{text-align:center;padding:40px 20px;color:#8a7a6a;}
@@ -161,8 +222,6 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 <body>
 
 <div class="toast" id="toast"></div>
-
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModalDirect()">×</button>
@@ -172,15 +231,18 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
   </div>
 </div>
 
-<!-- ============ PAGE 1: I AM ============ -->
+<!-- ══════════════════════════════════════
+     PAGE 1 — I AM (DECLARATIONS)
+══════════════════════════════════════ -->
 <div class="page active" id="page-decl">
   <div class="page-header">
     <div class="ornament">✦ Identity & Purpose</div>
     <h1>I <em>Am</em></h1>
     <div class="date-line" id="date1"></div>
   </div>
+
   <div class="decl-hero">
-    <div class="decl-source">✦ My Declaration · Today</div>
+    <div class="decl-source">✦ My Standing Declaration</div>
     <div class="decl-renounce">
       I finish what I start. <strong>I do not quit along the way.</strong><br><br>
       I renounce the Spirit of Stagnation. I come out of agreement with it.<br><br>
@@ -188,6 +250,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
       I am not my own — <strong>I belong to Jesus.</strong> He is the Master of my life.
     </div>
   </div>
+
   <div class="section-label">📖 Proverbs 31 — I Am</div>
   <div class="scroll-hint">← swipe through all →</div>
   <div class="decl-scroll">
@@ -203,6 +266,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     <div class="decl-card"><div class="iam-label">I Am · Proverbs 31:28–29</div><div class="decl-text">I am one whose children rise and call her blessed, whose husband praises her. Many women do noble things — but I walk in my full God-given measure.</div><div class="decl-ref">Proverbs 31:28–29</div></div>
     <div class="decl-card s"><div class="iam-label">I Am · Proverbs 31:30–31</div><div class="decl-text">I am a woman who fears the Lord. Charm fades. Beauty is fleeting. But I am rooted in something that does not move. My works will speak for me at the gates.</div><div class="decl-ref">Proverbs 31:30–31</div></div>
   </div>
+
   <div class="section-label">🔥 Isaiah 42 — I Am</div>
   <div class="scroll-hint">← swipe through all →</div>
   <div class="decl-scroll">
@@ -210,19 +274,36 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     <div class="decl-card s"><div class="iam-label">I Am · Isaiah 42:6</div><div class="decl-text">I am held in His hand. I am kept. He has called me in righteousness. I am in His grip and nothing can undo that.</div><div class="decl-ref">Isaiah 42:6</div></div>
     <div class="decl-card e"><div class="iam-label">I Am · Isaiah 42:6–7</div><div class="decl-text">I am a covenant for the people and a light for the nations. I open eyes that are blind. I bring prisoners out of darkness into freedom. This is my assignment.</div><div class="decl-ref">Isaiah 42:6–7</div></div>
     <div class="decl-card"><div class="iam-label">I Am · Isaiah 42:8–9</div><div class="decl-text">I walk in the new things God is declaring over my life. The former things have passed. New things are springing forth — I declare them before they appear.</div><div class="decl-ref">Isaiah 42:8–9</div></div>
-    <div class="decl-card s"><div class="iam-label">I Am · My God-Given Purpose</div><div class="decl-text">I am the hands and feet of Christ to a people desperately in need of light. I reach the broken. I feed the hungry. I stand with the forgotten.</div><div class="decl-ref">Isaiah 42 · My Personal Calling</div></div>
-    <div class="decl-card e"><div class="iam-label">I Am · Belonging</div><div class="decl-text">I am not my own. I belong to Jesus — completely, freely, and joyfully. He is the Master of my life. I take my orders from Him. My life is hidden in Christ.</div><div class="decl-ref">Isaiah 42 · Colossians 3:3</div></div>
+    <div class="decl-card s"><div class="iam-label">I Am · My Purpose</div><div class="decl-text">I am the hands and feet of Christ to a people desperately in need of light. I reach the broken. I feed the hungry. I stand with the forgotten.</div><div class="decl-ref">Isaiah 42 · My Calling</div></div>
+    <div class="decl-card e"><div class="iam-label">I Am · Belonging</div><div class="decl-text">I am not my own. I belong to Jesus — completely, freely, and joyfully. He is the Master of my life. I take my orders from Him.</div><div class="decl-ref">Isaiah 42 · Colossians 3:3</div></div>
   </div>
-  <button class="declare-btn" id="declareBtn" onclick="declare()">✦ I Declare These Truths Over My Life Today</button>
+
+  <!-- TODAY'S RECEIVED DECLARATIONS -->
+  <div class="section-label">✨ Today's Received Declarations</div>
+  <p style="font-size:12px;color:#6a5a4a;margin-bottom:14px;line-height:1.6;">As you spend time with the Lord, add any declarations or words He speaks to you today. These are yours for this day.</p>
+  <div id="todayDeclList"></div>
+  <div class="add-decl-area">
+    <textarea id="newDeclText" placeholder="Write a declaration the Lord has given you today...&#10;e.g. I am healed. I am provided for. This month I will complete what I start."></textarea>
+    <div class="add-decl-row">
+      <input class="add-decl-src" id="newDeclSrc" type="text" placeholder="Source (e.g. Psalm 23, Holy Spirit, 7 Apr)">
+      <button class="add-decl-btn" onclick="addDeclaration()">Add ✦</button>
+    </div>
+  </div>
+
+  <button class="declare-btn" id="declareBtn" onclick="declare()">✦ I Declare All These Truths Over My Life Today</button>
 </div>
 
-<!-- ============ PAGE 2: TODAY ============ -->
+
+<!-- ══════════════════════════════════════
+     PAGE 2 — TODAY
+══════════════════════════════════════ -->
 <div class="page" id="page-today">
   <div class="page-header">
     <div class="ornament">✦ Daily Walk</div>
     <h1>Today's <em>Altar</em></h1>
     <div class="date-line" id="date2"></div>
   </div>
+
   <div class="progress-wrap">
     <div class="ring-wrap">
       <svg width="80" height="80" viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="32"/><circle class="ring-fill" id="progressRing" cx="40" cy="40" r="32"/></svg>
@@ -230,6 +311,8 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     </div>
     <div class="progress-words"><h3>Today's Faithfulness</h3><p id="progressMsg">Begin with the Lord. One step at a time. You finish what you start.</p></div>
   </div>
+
+  <!-- MORNING -->
   <div class="section-label">🌅 Morning with the Lord</div>
   <div class="checkin-card morning">
     <h3>🌤 Morning Altar</h3>
@@ -238,12 +321,37 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     <div class="checkin-item" data-key="m3" onclick="toggleCheck(this)"><div class="cb-box"></div><span class="cb-label">Ask Him to order my steps — then be still and listen</span></div>
     <div class="checkin-item" data-key="m4" onclick="toggleCheck(this)"><div class="cb-box"></div><span class="cb-label">Morning movement with my son 💪</span></div>
   </div>
-  <div class="section-label">📋 Assignments on My Desk</div>
-  <div class="asgn-card" id="a1" data-key="a1"><div class="asgn-accent acc-g"></div><div class="asgn-icon">📊</div><div class="asgn-body"><div class="asgn-title">Financial Modeling Course</div><div class="asgn-desc">1 hour daily — no skipping. An appointment with my future in investment banking.</div><div class="asgn-tags"><span class="tag tg">⏱ 1 hr / day</span><span class="tag te">Ongoing</span></div></div><button class="asgn-toggle" onclick="toggleAsgn('a1')">✓</button></div>
-  <div class="asgn-card" id="a2" data-key="a2"><div class="asgn-accent acc-e"></div><div class="asgn-icon">🌱</div><div class="asgn-body"><div class="asgn-title">Agribusiness Course — Build &amp; Launch</div><div class="asgn-desc">2 hours daily until done. Launch in 1 week. Havilla Organic Farms goes into the world.</div><div class="asgn-tags"><span class="tag tg">⏱ 2 hrs / day</span><span class="tag te">🔥 1-Week Launch</span></div></div><button class="asgn-toggle" onclick="toggleAsgn('a2')">✓</button></div>
-  <div class="asgn-card" id="a3" data-key="a3"><div class="asgn-accent acc-s"></div><div class="asgn-icon">💪</div><div class="asgn-body"><div class="asgn-title">Morning Movement with My Son</div><div class="asgn-desc">Small, consistent, non-negotiable. He keeps me accountable. Every morning.</div><div class="asgn-tags"><span class="tag ts">Every Morning</span><span class="tag tg">Start Small</span></div></div><button class="asgn-toggle" onclick="toggleAsgn('a3')">✓</button></div>
-  <div class="asgn-card" id="a4" data-key="a4"><div class="asgn-accent acc-g"></div><div class="asgn-icon">🕐</div><div class="asgn-body"><div class="asgn-title">Working Routine — Sleep &amp; Wake</div><div class="asgn-desc">Fixed times. Talk to my husband. Structure is my freedom.</div><div class="asgn-tags"><span class="tag te">Conversation Needed</span><span class="tag ts">Structure = Freedom</span></div></div><button class="asgn-toggle" onclick="toggleAsgn('a4')">✓</button></div>
-  <div class="asgn-card" id="a5" data-key="a5"><div class="asgn-accent acc-s"></div><div class="asgn-icon">🐔</div><div class="asgn-body"><div class="asgn-title">Farm &amp; Garden — Daily Check</div><div class="asgn-desc">Check the poultry and garden. Write what is needed. Track progress. Havilla grows here.</div><div class="asgn-tags"><span class="tag ts">Daily Observation</span><span class="tag tg">Log on Farm tab</span></div></div><button class="asgn-toggle" onclick="toggleAsgn('a5')">✓</button></div>
+
+  <!-- MORNING JOURNAL -->
+  <div class="journal-block">
+    <div class="jb-label">📝 What I learned / heard this morning</div>
+    <textarea id="journal-morning" placeholder="What did the Lord speak to you? What did you sense, read, or receive in your time with Him this morning?..." oninput="autoSaveJournal('morning',this.value)"></textarea>
+    <span class="jb-save" id="jbadge-morning">✦ Saved</span>
+  </div>
+
+  <!-- TASKS -->
+  <div class="section-label">📋 My Assignments</div>
+  <div id="taskList"></div>
+  <div id="addTaskFormWrap" style="display:none">
+    <div class="add-task-form">
+      <div class="atf-label">✦ Add New Assignment</div>
+      <div class="atf-row">
+        <input class="atf-input" id="atf-title" placeholder="Assignment title..." type="text">
+        <div class="atf-color ta-g" id="colorG" onclick="selectColor('g')" title="Gold">●</div>
+        <div class="atf-color" id="colorE" onclick="selectColor('e')" title="Earth">●</div>
+        <div class="atf-color" id="colorS" onclick="selectColor('s')" title="Sage">●</div>
+      </div>
+      <textarea class="atf-desc" id="atf-desc" placeholder="Description (optional)..." rows="2"></textarea>
+      <div class="atf-row">
+        <input class="atf-tag-input" id="atf-tag1" placeholder="Tag 1 (e.g. ⏱ 1hr/day)">
+        <input class="atf-tag-input" id="atf-tag2" placeholder="Tag 2 (optional)">
+      </div>
+      <button class="atf-submit" onclick="submitNewTask()">Add Assignment ✦</button>
+    </div>
+  </div>
+  <button class="add-task-toggle" id="addTaskToggleBtn" onclick="toggleAddTask()">+ Add New Assignment</button>
+
+  <!-- EVENING -->
   <div class="section-label">🌙 Evening with the Lord</div>
   <div class="checkin-card evening">
     <h3>🌙 Evening Altar</h3>
@@ -252,9 +360,19 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     <div class="checkin-item" data-key="e3" onclick="toggleCheck(this,'s')"><div class="cb-box cb-sage"></div><span class="cb-label">Submit areas of growth. Ask for help.</span></div>
     <div class="checkin-item" data-key="e4" onclick="toggleCheck(this,'s')"><div class="cb-box cb-sage"></div><span class="cb-label">Found 1 person to stand with today ✦</span></div>
   </div>
+
+  <!-- EVENING JOURNAL -->
+  <div class="journal-block">
+    <div class="jb-label">📝 Evening review — what happened today</div>
+    <textarea id="journal-evening" placeholder="How did the day go? Where did you see God move? What do you want to submit to Him tonight? What are you grateful for?..." oninput="autoSaveJournal('evening',this.value)"></textarea>
+    <span class="jb-save" id="jbadge-evening">✦ Saved</span>
+  </div>
 </div>
 
-<!-- ============ PAGE 3: FARM ============ -->
+
+<!-- ══════════════════════════════════════
+     PAGE 3 — FARM
+══════════════════════════════════════ -->
 <div class="page" id="page-farm">
   <div class="page-header">
     <div class="ornament">✦ Havilla Organic Farms</div>
@@ -280,7 +398,10 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
   <div class="farm-card"><h4>📈 Progress / what is thriving</h4><textarea class="farm-ta" id="note-wins" placeholder="Wins, milestones, things that are growing well..." oninput="autoSaveFarm('wins',this.value)"></textarea><span class="save-badge" id="badge-wins">✦ Saved</span></div>
 </div>
 
-<!-- ============ PAGE 4: STAND WITH ============ -->
+
+<!-- ══════════════════════════════════════
+     PAGE 4 — STAND WITH
+══════════════════════════════════════ -->
 <div class="page" id="page-stand">
   <div class="page-header">
     <div class="ornament">✦ Isaiah 42:6–7</div>
@@ -292,19 +413,22 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     <div class="stand-ref" style="margin-top:10px">Isaiah 42:6–7 · I am the hands and feet of Christ</div>
   </div>
   <div class="section-label">✦ Who did I stand with today?</div>
-  <p style="font-size:12px;color:#6a5a4a;margin-bottom:14px;line-height:1.6;">Find at least one person to reach, pray for, feed, help, or encourage. Log them here.</p>
+  <p style="font-size:12px;color:#6a5a4a;margin-bottom:14px;line-height:1.6;">Find at least one person to reach, pray for, feed, help, or encourage.</p>
   <div class="stand-row">
     <input class="stand-input" id="standInput" type="text" placeholder="Name someone you stood with today..."/>
     <button class="stand-add" onclick="addPerson()">Add</button>
   </div>
   <div id="standList"></div>
-  <div style="background:var(--parchment);border-radius:14px;padding:22px;border:1px solid rgba(201,168,76,.2);margin-top:20px">
+  <div style="background:var(--parchment);border-radius:14px;padding:20px;border:1px solid rgba(201,168,76,.2);margin-top:20px">
     <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4vw,20px);font-style:italic;color:var(--earth);line-height:1.75;margin-bottom:10px">"She opens her hand to the poor and reaches out her hands to the needy."</div>
     <div style="font-size:10px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase">Proverbs 31:20</div>
   </div>
 </div>
 
-<!-- ============ PAGE 5: DASHBOARD ============ -->
+
+<!-- ══════════════════════════════════════
+     PAGE 5 — HISTORY / DASHBOARD
+══════════════════════════════════════ -->
 <div class="page" id="page-dash">
   <div class="page-header">
     <div class="ornament">✦ Your Journey</div>
@@ -313,15 +437,12 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
   </div>
   <div class="streak-banner">
     <div class="streak-num" id="streakNum">0</div>
-    <div class="streak-info">
-      <h3>Day Streak</h3>
-      <p id="streakDesc">Start today — open the app and check in with the Lord.</p>
-    </div>
+    <div class="streak-info"><h3>Day Streak</h3><p id="streakDesc">Start today — open the app and check in with the Lord.</p></div>
   </div>
   <div class="stat-grid">
     <div class="stat-card"><div class="stat-num" id="statDays">0</div><div class="stat-label">Days Logged</div></div>
     <div class="stat-card"><div class="stat-num" id="statDeclared">0</div><div class="stat-label">Days Declared</div></div>
-    <div class="stat-card"><div class="stat-num" id="statAssignments">0</div><div class="stat-label">Assignments Done</div></div>
+    <div class="stat-card"><div class="stat-num" id="statTasks">0</div><div class="stat-label">Tasks Completed</div></div>
     <div class="stat-card"><div class="stat-num" id="statPeople">0</div><div class="stat-label">People Stood With</div></div>
   </div>
   <div class="heatmap-wrap">
@@ -331,6 +452,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
   <div class="section-label">📖 Daily History</div>
   <div id="historyList"><div class="empty-state"><div class="es-icon">✦</div><p>Your daily records will appear here as you log each day. Begin today.</p></div></div>
 </div>
+
 
 <!-- TAB BAR -->
 <nav class="tab-bar">
@@ -342,13 +464,19 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 </nav>
 
 <script>
-// ── IndexedDB ──────────────────────────────────────────────────
-const DB_NAME='MercyAltar', DB_VER=1, STORE='days';
+// ════════════════════════════════════════
+//  IndexedDB
+// ════════════════════════════════════════
+const DB_NAME='MercyAltar',DB_VER=2,STORE='days',TASKS_STORE='tasks';
 let db=null;
 function openDB(){
   return new Promise((res,rej)=>{
     const r=indexedDB.open(DB_NAME,DB_VER);
-    r.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'dateKey'});};
+    r.onupgradeneeded=e=>{
+      const d=e.target.result;
+      if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'dateKey'});
+      if(!d.objectStoreNames.contains(TASKS_STORE))d.createObjectStore(TASKS_STORE,{keyPath:'id'});
+    };
     r.onsuccess=e=>{db=e.target.result;res(db);};
     r.onerror=()=>rej(r.error);
   });
@@ -356,37 +484,73 @@ function openDB(){
 function saveDay(data){return new Promise((res,rej)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(data);tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
 function getDay(k){return new Promise(res=>{const tx=db.transaction(STORE,'readonly');const r=tx.objectStore(STORE).get(k);r.onsuccess=()=>res(r.result||null);r.onerror=()=>res(null);});}
 function getAllDays(){return new Promise(res=>{const tx=db.transaction(STORE,'readonly');const r=tx.objectStore(STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([]);});}
+function saveTasks(tasks){return new Promise((res,rej)=>{const tx=db.transaction(TASKS_STORE,'readwrite');const store=tx.objectStore(TASKS_STORE);store.clear();tasks.forEach(t=>store.put(t));tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+function getTasks(){return new Promise(res=>{const tx=db.transaction(TASKS_STORE,'readonly');const r=tx.objectStore(TASKS_STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([]);});}
 
-// ── Date ──────────────────────────────────────────────────────
+// ════════════════════════════════════════
+//  Date & State
+// ════════════════════════════════════════
 const TODAY=new Date();
 const TODAY_KEY=TODAY.toISOString().split('T')[0];
 const dateStr=TODAY.toLocaleDateString('en-KE',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).toUpperCase();
 ['date1','date2','date3','date4','date5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr;});
 
-// ── State ─────────────────────────────────────────────────────
-let state={dateKey:TODAY_KEY,declared:false,checks:{},assignments:{},farm:{},people:[]};
+let state={
+  dateKey:TODAY_KEY,
+  declared:false,
+  checks:{},
+  farm:{},
+  journals:{morning:'',evening:''},
+  todayDeclarations:[],  // [{text, source, ts}]
+  people:[]
+};
 
-// ── Load today ────────────────────────────────────────────────
-async function loadToday(){
+// tasks live separately (persist across days, carry forward)
+let tasks=[];
+
+// ════════════════════════════════════════
+//  Boot / Load
+// ════════════════════════════════════════
+async function boot(){
+  await openDB();
+  // Load today's day record
   const saved=await getDay(TODAY_KEY);
-  if(saved){
-    state={...state,...saved};
-    document.querySelectorAll('.checkin-item[data-key]').forEach(item=>{
-      if(state.checks[item.dataset.key]){item.classList.add('done');item.querySelector('.cb-box').classList.add('checked');}
-    });
-    ['a1','a2','a3','a4','a5'].forEach(k=>{if(state.assignments[k])document.getElementById(k).classList.add('complete');});
-    ['poultry','garden','needed','wins'].forEach(k=>{const el=document.getElementById('note-'+k);if(el&&state.farm[k])el.value=state.farm[k];});
-    if(state.declared){const btn=document.getElementById('declareBtn');btn.classList.add('declared');btn.textContent='✦ Declared. These truths stand over my life today.';}
-    renderPeople();
-    updateProgress();
-  }
+  if(saved) state={...state,...saved};
+  // Load tasks (global, carry across days)
+  const savedTasks=await getTasks();
+  if(savedTasks.length) tasks=savedTasks;
+  else tasks=defaultTasks();
+  // Restore UI
+  restoreChecks();
+  restoreJournals();
+  renderTasks();
+  renderTodayDeclarations();
+  if(state.declared){const btn=document.getElementById('declareBtn');btn.classList.add('declared');btn.textContent='✦ Declared. These truths stand over my life today.';}
+  renderPeople();
+  updateProgress();
 }
 
-// ── Persist ───────────────────────────────────────────────────
-let saveTimer=null;
-function persist(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveDay(state),600);}
+function defaultTasks(){
+  return [
+    {id:uid(),title:'Financial Modeling Course',desc:'1 hour daily — no skipping. An appointment with my future in investment banking.',color:'g',tags:['⏱ 1hr/day','Ongoing'],complete:false},
+    {id:uid(),title:'Agribusiness Course — Build & Launch',desc:'2 hours daily until done. Launch in 1 week. Havilla Organic Farms goes into the world.',color:'e',tags:['⏱ 2hrs/day','🔥 1-Week Launch'],complete:false},
+    {id:uid(),title:'Morning Movement with My Son',desc:'Small, consistent, non-negotiable. He keeps me accountable. Every morning.',color:'s',tags:['Every Morning','Start Small'],complete:false},
+    {id:uid(),title:'Working Routine — Sleep & Wake',desc:'Fixed times. Talk to my husband. Structure is my freedom.',color:'g',tags:['Conversation Needed','Structure = Freedom'],complete:false},
+    {id:uid(),title:'Farm & Garden — Daily Check',desc:'Check the poultry and garden. Write what is needed. Track progress.',color:'s',tags:['Daily Observation','Log on Farm tab'],complete:false},
+  ];
+}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 
-// ── Nav ───────────────────────────────────────────────────────
+// ════════════════════════════════════════
+//  Persist
+// ════════════════════════════════════════
+let saveTimer=null;
+function persist(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveDay(state),500);}
+function persistTasks(){saveTasks(tasks);}
+
+// ════════════════════════════════════════
+//  Nav
+// ════════════════════════════════════════
 function showPage(name,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -396,7 +560,9 @@ function showPage(name,btn){
   if(name==='dash')refreshDashboard();
 }
 
-// ── Declare ───────────────────────────────────────────────────
+// ════════════════════════════════════════
+//  DECLARATIONS
+// ════════════════════════════════════════
 function declare(){
   state.declared=true; persist();
   const btn=document.getElementById('declareBtn');
@@ -405,7 +571,45 @@ function declare(){
   showToast('Declared over your life ✦');
 }
 
-// ── Check-ins ─────────────────────────────────────────────────
+function addDeclaration(){
+  const text=document.getElementById('newDeclText').value.trim();
+  const src=document.getElementById('newDeclSrc').value.trim();
+  if(!text)return;
+  state.todayDeclarations.push({id:uid(),text,source:src||'Today',ts:new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'})});
+  document.getElementById('newDeclText').value='';
+  document.getElementById('newDeclSrc').value='';
+  renderTodayDeclarations();
+  persist();
+  showToast('Declaration added ✦');
+}
+
+function deleteDeclaration(id){
+  state.todayDeclarations=state.todayDeclarations.filter(d=>d.id!==id);
+  renderTodayDeclarations();
+  persist();
+}
+
+function renderTodayDeclarations(){
+  const list=document.getElementById('todayDeclList');
+  if(!state.todayDeclarations.length){list.innerHTML='';return;}
+  list.innerHTML=state.todayDeclarations.map(d=>`
+    <div class="today-decl-card received">
+      <div class="decl-body">
+        <p>${d.text}</p>
+        <small>✦ ${d.source} · ${d.ts}</small>
+      </div>
+      <button class="decl-del-btn" onclick="deleteDeclaration('${d.id}')">×</button>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════
+//  CHECK-INS
+// ════════════════════════════════════════
+function restoreChecks(){
+  document.querySelectorAll('.checkin-item[data-key]').forEach(item=>{
+    if(state.checks[item.dataset.key]){item.classList.add('done');item.querySelector('.cb-box').classList.add('checked');}
+  });
+}
 function toggleCheck(item){
   const k=item.dataset.key;
   const isDone=item.classList.contains('done');
@@ -414,28 +618,139 @@ function toggleCheck(item){
   state.checks[k]=!isDone; persist(); updateProgress();
 }
 
-// ── Assignments ───────────────────────────────────────────────
-function toggleAsgn(id){
-  const card=document.getElementById(id);
-  const isComplete=card.classList.contains('complete');
-  card.classList.toggle('complete',!isComplete);
-  state.assignments[id]=!isComplete; persist(); updateProgress();
+// ════════════════════════════════════════
+//  JOURNALS
+// ════════════════════════════════════════
+function restoreJournals(){
+  if(state.journals){
+    ['morning','evening'].forEach(k=>{
+      const el=document.getElementById('journal-'+k);
+      if(el&&state.journals[k])el.value=state.journals[k];
+    });
+  }
+}
+const jTimers={};
+function autoSaveJournal(key,val){
+  if(!state.journals)state.journals={};
+  state.journals[key]=val;
+  clearTimeout(jTimers[key]);
+  jTimers[key]=setTimeout(async()=>{
+    await saveDay(state);
+    const badge=document.getElementById('jbadge-'+key);
+    if(badge){badge.classList.add('show');setTimeout(()=>badge.classList.remove('show'),1800);}
+  },800);
 }
 
-// ── Progress ──────────────────────────────────────────────────
+// ════════════════════════════════════════
+//  TASKS
+// ════════════════════════════════════════
+let selectedColor='g';
+function selectColor(c){
+  selectedColor=c;
+  ['g','e','s'].forEach(x=>{
+    const el=document.getElementById('color'+x.toUpperCase());
+    el.className='atf-color'+(c===x?' sel-'+c:'');
+  });
+}
+
+function toggleAddTask(){
+  const wrap=document.getElementById('addTaskFormWrap');
+  const btn=document.getElementById('addTaskToggleBtn');
+  const showing=wrap.style.display!=='none';
+  wrap.style.display=showing?'none':'block';
+  btn.textContent=showing?'+ Add New Assignment':'− Cancel';
+}
+
+function submitNewTask(){
+  const title=document.getElementById('atf-title').value.trim();
+  if(!title){showToast('Please enter a title');return;}
+  const desc=document.getElementById('atf-desc').value.trim();
+  const t1=document.getElementById('atf-tag1').value.trim();
+  const t2=document.getElementById('atf-tag2').value.trim();
+  const task={id:uid(),title,desc,color:selectedColor,tags:[t1,t2].filter(Boolean),complete:false};
+  tasks.push(task);
+  persistTasks();
+  renderTasks();
+  // reset form
+  ['atf-title','atf-desc','atf-tag1','atf-tag2'].forEach(id=>document.getElementById(id).value='');
+  toggleAddTask();
+  showToast('Assignment added ✦');
+  updateProgress();
+}
+
+function toggleTask(id){
+  const t=tasks.find(x=>x.id===id);
+  if(!t)return;
+  t.complete=!t.complete;
+  persistTasks();
+  renderTasks();
+  updateProgress();
+  if(t.complete)showToast('Assignment complete ✦');
+}
+
+function deleteTask(id){
+  tasks=tasks.filter(x=>x.id!==id);
+  persistTasks();
+  renderTasks();
+  updateProgress();
+}
+
+function updateTaskField(id,field,val){
+  const t=tasks.find(x=>x.id===id);
+  if(!t)return;
+  t[field]=val;
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>persistTasks(),700);
+}
+
+function renderTasks(){
+  const list=document.getElementById('taskList');
+  if(!tasks.length){list.innerHTML='<p style="font-size:13px;color:#8a7a6a;padding:12px 0;font-style:italic">No assignments yet. Add one below.</p>';return;}
+  list.innerHTML=tasks.map(t=>`
+    <div class="task-card${t.complete?' complete':''}" id="tc-${t.id}">
+      <div class="task-accent ta-${t.color}"></div>
+      <div class="task-toggle${t.complete?' checked':''}" onclick="toggleTask('${t.id}')"></div>
+      <div class="task-body">
+        <input class="task-title-input${t.complete?' done-text':''}" value="${esc(t.title)}" placeholder="Assignment title..." oninput="updateTaskField('${t.id}','title',this.value)">
+        <textarea class="task-desc-input" placeholder="Description..." oninput="updateTaskField('${t.id}','desc',this.value)">${esc(t.desc||'')}</textarea>
+        <div class="task-meta">
+          ${t.tags.filter(Boolean).map(tag=>`<span class="tag t${t.color}">${tag}</span>`).join('')}
+          ${t.complete?'<span class="tag ts">✓ Complete</span>':''}
+        </div>
+      </div>
+      <button class="task-del" onclick="deleteTask('${t.id}')" title="Delete">×</button>
+    </div>`).join('');
+  // auto-resize textareas
+  list.querySelectorAll('.task-desc-input').forEach(ta=>{ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});
+}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ════════════════════════════════════════
+//  PROGRESS
+// ════════════════════════════════════════
 function updateProgress(){
   const checks=document.querySelectorAll('.checkin-item.done').length;
-  const done=document.querySelectorAll('.asgn-card.complete').length;
-  const pct=Math.round(((checks+done)/13)*100);
+  const done=tasks.filter(t=>t.complete).length;
+  const total=8+Math.max(tasks.length,1);
+  const pct=Math.round(((checks+done)/total)*100);
   document.getElementById('pctLabel').textContent=pct+'%';
-  document.getElementById('progressRing').style.strokeDashoffset=201-(201*pct/100);
+  document.getElementById('progressRing').style.strokeDashoffset=201-(201*Math.min(pct,100)/100);
   const msgs=["Begin with the Lord. One step at a time. You finish what you start.","You are moving, Mercy. His grace carries you.","Halfway there. The Lord orders your steps — keep walking.","Almost. Faithfulness today is tomorrow's harvest.","Well done, good and faithful servant. He sees every step. ✦"];
   document.getElementById('progressMsg').textContent=msgs[Math.min(Math.floor(pct/25),4)];
 }
 
-// ── Farm auto-save ────────────────────────────────────────────
+// ════════════════════════════════════════
+//  FARM
+// ════════════════════════════════════════
+function restoreFarm(){
+  ['poultry','garden','needed','wins'].forEach(k=>{
+    const el=document.getElementById('note-'+k);
+    if(el&&state.farm&&state.farm[k])el.value=state.farm[k];
+  });
+}
 const farmTimers={};
 function autoSaveFarm(key,val){
+  if(!state.farm)state.farm={};
   state.farm[key]=val;
   clearTimeout(farmTimers[key]);
   farmTimers[key]=setTimeout(async()=>{
@@ -445,7 +760,9 @@ function autoSaveFarm(key,val){
   },800);
 }
 
-// ── Stand with ────────────────────────────────────────────────
+// ════════════════════════════════════════
+//  STAND WITH
+// ════════════════════════════════════════
 function addPerson(){
   const input=document.getElementById('standInput');
   const val=input.value.trim();
@@ -457,25 +774,27 @@ function addPerson(){
 document.getElementById('standInput').addEventListener('keydown',e=>{if(e.key==='Enter')addPerson();});
 function removePerson(i){state.people.splice(i,1);renderPeople();persist();}
 function renderPeople(){
-  document.getElementById('standList').innerHTML=state.people.map((p,i)=>`<div class="stand-chip"><span>✦ ${p.name}</span><small>${p.time}</small><button onclick="removePerson(${i})">×</button></div>`).join('');
+  document.getElementById('standList').innerHTML=(state.people||[]).map((p,i)=>`
+    <div class="stand-chip"><span>✦ ${p.name}</span><small>${p.time}</small><button onclick="removePerson(${i})">×</button></div>`).join('');
 }
 
-// ── Dashboard ─────────────────────────────────────────────────
+// ════════════════════════════════════════
+//  DASHBOARD
+// ════════════════════════════════════════
 async function refreshDashboard(){
   const all=await getAllDays();
   all.sort((a,b)=>a.dateKey.localeCompare(b.dateKey));
   document.getElementById('statDays').textContent=all.length;
   document.getElementById('statDeclared').textContent=all.filter(d=>d.declared).length;
-  document.getElementById('statAssignments').textContent=all.reduce((s,d)=>s+Object.values(d.assignments||{}).filter(Boolean).length,0);
+  document.getElementById('statTasks').textContent=tasks.filter(t=>t.complete).length;
   document.getElementById('statPeople').textContent=all.reduce((s,d)=>s+(d.people||[]).length,0);
-  // Streak
   const dateMap={};all.forEach(d=>{dateMap[d.dateKey]=d;});
   let streak=0,cursor=new Date(TODAY);
   while(true){
     const k=cursor.toISOString().split('T')[0];
     const entry=dateMap[k];
     if(!entry)break;
-    const total=Object.values(entry.checks||{}).filter(Boolean).length+Object.values(entry.assignments||{}).filter(Boolean).length;
+    const total=Object.values(entry.checks||{}).filter(Boolean).length;
     if(total===0&&!entry.declared)break;
     streak++;cursor.setDate(cursor.getDate()-1);
   }
@@ -490,117 +809,109 @@ async function refreshDashboard(){
 }
 
 function buildHeatmap(dateMap){
-  const wrap=document.getElementById('heatmapGrid');
-  wrap.innerHTML='';
-  const grid=document.createElement('div');
-  grid.style.cssText='display:flex;gap:4px;';
-  const end=new Date(TODAY);
-  const start=new Date(TODAY);start.setDate(start.getDate()-83);
-  start.setDate(start.getDate()-start.getDay());
+  const wrap=document.getElementById('heatmapGrid');wrap.innerHTML='';
+  const grid=document.createElement('div');grid.style.cssText='display:flex;gap:4px;';
+  const start=new Date(TODAY);start.setDate(start.getDate()-83);start.setDate(start.getDate()-start.getDay());
   let col=null,cursor=new Date(start);
-  while(cursor<=end){
+  while(cursor<=TODAY){
     if(cursor.getDay()===0){col=document.createElement('div');col.style.cssText='display:flex;flex-direction:column;gap:4px;';grid.appendChild(col);}
     const k=cursor.toISOString().split('T')[0];
     const entry=dateMap[k];
-    const day=document.createElement('div');
-    day.className='heatmap-day';
-    if(entry){
-      const score=Object.values(entry.checks||{}).filter(Boolean).length+Object.values(entry.assignments||{}).filter(Boolean).length;
-      if(score>=10)day.classList.add('hd-4');
-      else if(score>=6)day.classList.add('hd-3');
-      else if(score>=3)day.classList.add('hd-2');
-      else day.classList.add('hd-1');
-    }
+    const day=document.createElement('div');day.className='heatmap-day';
+    if(entry){const score=Object.values(entry.checks||{}).filter(Boolean).length;if(score>=7)day.classList.add('hd-4');else if(score>=5)day.classList.add('hd-3');else if(score>=2)day.classList.add('hd-2');else day.classList.add('hd-1');}
     if(k===TODAY_KEY)day.style.outline='2px solid var(--gold)';
-    const d2=new Date(cursor);
-    day.title=d2.toLocaleDateString('en-KE',{weekday:'short',month:'short',day:'numeric'});
+    const d2=new Date(cursor);day.title=d2.toLocaleDateString('en-KE',{weekday:'short',month:'short',day:'numeric'});
     if(entry)day.onclick=()=>openModal(entry);
     if(col)col.appendChild(day);
     cursor.setDate(cursor.getDate()+1);
   }
   wrap.appendChild(grid);
-  const legend=document.createElement('div');
-  legend.style.cssText='display:flex;align-items:center;gap:6px;margin-top:10px;font-size:9px;color:var(--sage);letter-spacing:1px;text-transform:uppercase;';
+  const legend=document.createElement('div');legend.style.cssText='display:flex;align-items:center;gap:6px;margin-top:10px;font-size:9px;color:var(--sage);letter-spacing:1px;text-transform:uppercase;';
   legend.innerHTML='<span>Less</span><div style="width:12px;height:12px;border-radius:3px;background:var(--parchment)"></div><div style="width:12px;height:12px;border-radius:3px;background:rgba(201,168,76,.25)"></div><div style="width:12px;height:12px;border-radius:3px;background:rgba(201,168,76,.5)"></div><div style="width:12px;height:12px;border-radius:3px;background:rgba(201,168,76,.75)"></div><div style="width:12px;height:12px;border-radius:3px;background:var(--gold)"></div><span>More</span>';
   wrap.appendChild(legend);
 }
 
 function buildHistoryList(days){
   const el=document.getElementById('historyList');
-  if(!days.length){el.innerHTML='<div class="empty-state"><div class="es-icon">✦</div><p>Your daily records will appear here as you log each day. Begin today.</p></div>';return;}
+  if(!days.length){el.innerHTML='<div class="empty-state"><div class="es-icon">✦</div><p>Your daily records will appear here as you log each day.</p></div>';return;}
   el.innerHTML=days.map(d=>{
     const dt=new Date(d.dateKey+'T00:00:00');
     const lbl=dt.toLocaleDateString('en-KE',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
     const checks=Object.values(d.checks||{}).filter(Boolean).length;
-    const asgnsDone=Object.values(d.assignments||{}).filter(Boolean).length;
     const people=(d.people||[]).length;
     const hasFarm=Object.values(d.farm||{}).some(v=>v&&v.trim());
+    const hasJournal=(d.journals&&(d.journals.morning||d.journals.evening));
+    const hasDeclReceived=(d.todayDeclarations||[]).length>0;
     const safe=encodeURIComponent(JSON.stringify(d));
     return `<div class="history-item" onclick="openModalStr('${safe}')">
       <div class="history-date">${lbl}</div>
-      <div class="history-summary">${d.declared?'✦ Declared':'No declaration'} · ${checks}/8 check-ins · ${asgnsDone}/5 done</div>
+      <div class="history-summary">${d.declared?'✦ Declared':'No declaration'} · ${checks}/8 check-ins</div>
       <div class="pills">
         ${checks>0?`<span class="pill pg">${checks} check-ins</span>`:''}
-        ${asgnsDone>0?`<span class="pill pe">${asgnsDone} assignments</span>`:''}
         ${people>0?`<span class="pill ps">${people} stood with</span>`:''}
         ${hasFarm?'<span class="pill ps">farm logged</span>':''}
+        ${hasJournal?'<span class="pill pg">journal entry</span>':''}
+        ${hasDeclReceived?`<span class="pill pe">${(d.todayDeclarations||[]).length} declarations received</span>`:''}
       </div>
     </div>`;
   }).join('');
 }
 
-// ── Modal ─────────────────────────────────────────────────────
-const CHECK_LABELS={m1:'Thank the Lord for new day and new grace',m2:'Ask the Lord His plan for today',m3:'Ask Him to order my steps — then listen',m4:'Morning movement with my son 💪',e1:'Thank the Lord for the day',e2:'Review the day with Him',e3:'Submit areas of growth. Ask for help.',e4:'Found 1 person to stand with ✦'};
-const ASGN_LABELS={a1:'Financial Modeling Course',a2:'Agribusiness Course — Build & Launch',a3:'Morning Movement with My Son',a4:'Working Routine — Sleep & Wake',a5:'Farm & Garden — Daily Check'};
+// ════════════════════════════════════════
+//  MODAL
+// ════════════════════════════════════════
+const CHECK_LABELS={m1:'Thank the Lord for new day and grace',m2:'Ask the Lord His plan for today',m3:'Ask Him to order my steps — then listen',m4:'Morning movement with my son 💪',e1:'Thank the Lord for the day',e2:'Review the day with Him',e3:'Submit areas of growth. Ask for help.',e4:'Found 1 person to stand with ✦'};
 
 function openModalStr(safe){openModal(JSON.parse(decodeURIComponent(safe)));}
 function openModal(d){
   const dt=new Date(d.dateKey+'T00:00:00');
   document.getElementById('modalDate').textContent=dt.toLocaleDateString('en-KE',{weekday:'long',month:'long',day:'numeric',year:'numeric'}).toUpperCase();
   const checks=Object.values(d.checks||{}).filter(Boolean).length;
-  const asgnsDone=Object.values(d.assignments||{}).filter(Boolean).length;
-  const score=checks+asgnsDone;
-  document.getElementById('modalHeading').textContent=`${score} of 13 — ${score>=10?'Faithful day ✦':score>=6?'Good progress':'A day in the journey'}`;
+  document.getElementById('modalHeading').textContent=`${checks}/8 check-ins — ${checks>=7?'Faithful day ✦':checks>=4?'Good progress':'A day in the journey'}`;
   let html='';
+  // Declaration
   html+=`<div class="modal-section"><h4>Declaration</h4><p style="font-size:13px;color:${d.declared?'var(--sage)':'#b0a090'}">${d.declared?'✦ Declared today':'Not declared'}</p></div>`;
+  // Received declarations
+  if((d.todayDeclarations||[]).length){
+    html+=`<div class="modal-section"><h4>Received Declarations (${d.todayDeclarations.length})</h4>`;
+    d.todayDeclarations.forEach(dec=>{html+=`<div class="modal-decl-item">"${dec.text}"<br><small style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--sage)">✦ ${dec.source}</small></div>`;});
+    html+=`</div>`;
+  }
+  // Check-ins
   html+=`<div class="modal-section"><h4>Check-ins</h4><ul class="modal-list">`;
   Object.entries(CHECK_LABELS).forEach(([k,lbl])=>{html+=`<li class="${(d.checks||{})[k]?'done':''}"><div class="tick">${(d.checks||{})[k]?'✓':''}</div>${lbl}</li>`;});
   html+=`</ul></div>`;
-  html+=`<div class="modal-section"><h4>Assignments</h4><ul class="modal-list">`;
-  Object.entries(ASGN_LABELS).forEach(([k,lbl])=>{html+=`<li class="${(d.assignments||{})[k]?'done':''}"><div class="tick">${(d.assignments||{})[k]?'✓':''}</div>${lbl}</li>`;});
-  html+=`</ul></div>`;
+  // Journals
+  if(d.journals){
+    if(d.journals.morning){html+=`<div class="modal-section"><h4>Morning Journal</h4><div class="modal-note">${d.journals.morning}</div></div>`;}
+    if(d.journals.evening){html+=`<div class="modal-section"><h4>Evening Review</h4><div class="modal-note">${d.journals.evening}</div></div>`;}
+  }
+  // Farm
   const farm=d.farm||{};
   const fe=[['Poultry',farm.poultry],['Garden',farm.garden],['Needed',farm.needed],['Wins',farm.wins]].filter(([,v])=>v&&v.trim());
-  if(fe.length){
-    html+=`<div class="modal-section"><h4>Farm Log</h4>`;
-    fe.forEach(([lbl,val])=>{html+=`<p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--sage);margin:8px 0 4px">${lbl}</p><div class="modal-note">${val}</div>`;});
-    html+=`</div>`;
-  }
-  if((d.people||[]).length){
-    html+=`<div class="modal-section"><h4>Stood With</h4><div class="modal-people">`;
-    d.people.forEach(p=>{html+=`<div class="modal-person">✦ ${p.name}</div>`;});
-    html+=`</div></div>`;
-  }
+  if(fe.length){html+=`<div class="modal-section"><h4>Farm Log</h4>`;fe.forEach(([lbl,val])=>{html+=`<p style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--sage);margin:8px 0 4px">${lbl}</p><div class="modal-note">${val}</div>`;});html+=`</div>`;}
+  // People
+  if((d.people||[]).length){html+=`<div class="modal-section"><h4>Stood With</h4><div class="modal-people">`;d.people.forEach(p=>{html+=`<div class="modal-person">✦ ${p.name}</div>`;});html+=`</div></div>`;}
   document.getElementById('modalBody').innerHTML=html;
   document.getElementById('modalOverlay').classList.add('open');
 }
 function closeModal(e){if(e.target===document.getElementById('modalOverlay'))closeModalDirect();}
 function closeModalDirect(){document.getElementById('modalOverlay').classList.remove('open');}
 
-// ── Toast ─────────────────────────────────────────────────────
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
-}
+// ════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
-// ── Service Worker ────────────────────────────────────────────
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
-}
+// ════════════════════════════════════════
+//  Service Worker
+// ════════════════════════════════════════
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 
-// ── Boot ──────────────────────────────────────────────────────
-openDB().then(()=>loadToday()).catch(err=>console.warn('IndexedDB failed:',err));
+// ════════════════════════════════════════
+//  Start
+// ════════════════════════════════════════
+boot();
 </script>
 </body>
 </html>
