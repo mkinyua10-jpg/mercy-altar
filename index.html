@@ -142,6 +142,18 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .add-task-toggle{width:100%;background:none;border:1.5px dashed rgba(201,168,76,.4);border-radius:12px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);cursor:pointer;margin-top:4px;transition:background .2s;}
 .add-task-toggle:active{background:rgba(201,168,76,.08);}
 
+/* Long-term task daily tracking */
+.task-daily-row{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(201,168,76,.12);flex-wrap:wrap;}
+.task-daily-btn{display:flex;align-items:center;gap:5px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.3);border-radius:8px;padding:6px 11px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);cursor:pointer;transition:all .2s;flex-shrink:0;}
+.task-daily-btn.done-today{background:rgba(122,158,126,.15);border-color:var(--sage);color:var(--sage);}
+.task-daily-streak{font-size:10px;letter-spacing:1px;color:#8a7a6a;text-transform:uppercase;flex:1;}
+.task-daily-streak strong{color:var(--earth);}
+.task-finish-btn{display:flex;align-items:center;gap:4px;background:rgba(92,61,46,.08);border:1.5px solid rgba(92,61,46,.2);border-radius:8px;padding:6px 11px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--earth);cursor:pointer;transition:all .2s;flex-shrink:0;}
+.task-finish-btn:active{background:rgba(92,61,46,.15);}
+.atf-longterm-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px;color:var(--earth);font-family:'Josefin Sans',sans-serif;letter-spacing:.5px;}
+.atf-longterm-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
+.add-decl-btn{position:relative;z-index:10;}
+
 /* ── FARM ── */
 .farm-card{background:white;border:1px solid rgba(122,158,126,.22);border-radius:12px;padding:18px;margin-bottom:14px;}
 .farm-card h4{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage);margin-bottom:10px;}
@@ -286,7 +298,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     <textarea id="newDeclText" placeholder="Write a declaration the Lord has given you today...&#10;e.g. I am healed. I am provided for. This month I will complete what I start."></textarea>
     <div class="add-decl-row">
       <input class="add-decl-src" id="newDeclSrc" type="text" placeholder="Source (e.g. Psalm 23, Holy Spirit, 7 Apr)">
-      <button class="add-decl-btn" onclick="addDeclaration()">Add ✦</button>
+      <button type="button" class="add-decl-btn" onclick="addDeclaration()">Add ✦</button>
     </div>
   </div>
 
@@ -345,6 +357,10 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
       <div class="atf-row">
         <input class="atf-tag-input" id="atf-tag1" placeholder="Tag 1 (e.g. ⏱ 1hr/day)">
         <input class="atf-tag-input" id="atf-tag2" placeholder="Tag 2 (optional)">
+      </div>
+      <div class="atf-longterm-row">
+        <input type="checkbox" id="atf-longterm">
+        <label for="atf-longterm">Long-term assignment (track daily + mark complete when done)</label>
       </div>
       <button class="atf-submit" onclick="submitNewTask()">Add Assignment ✦</button>
     </div>
@@ -518,25 +534,37 @@ async function boot(){
   if(saved) state={...state,...saved};
   // Load tasks (global, carry across days)
   const savedTasks=await getTasks();
-  if(savedTasks.length) tasks=savedTasks;
-  else tasks=defaultTasks();
+  if(savedTasks.length){
+    tasks=savedTasks;
+    // Migrate old tasks missing longterm/dailyLog fields
+    tasks.forEach(t=>{
+      if(t.longterm===undefined)t.longterm=false;
+      if(!t.dailyLog)t.dailyLog={};
+      // Reset dailyDoneToday if last log wasn't today
+      const lastDay=t.lastDailyDate||'';
+      t.dailyDoneToday=(lastDay===TODAY_KEY&&!!t.dailyLog[TODAY_KEY]);
+    });
+  } else tasks=defaultTasks();
   // Restore UI
   restoreChecks();
   restoreJournals();
+  restoreFarm();
   renderTasks();
   renderTodayDeclarations();
   if(state.declared){const btn=document.getElementById('declareBtn');btn.classList.add('declared');btn.textContent='✦ Declared. These truths stand over my life today.';}
   renderPeople();
   updateProgress();
+  // Wire up Enter key on declaration src input
+  document.getElementById('newDeclSrc').addEventListener('keydown',e=>{if(e.key==='Enter')addDeclaration();});
 }
 
 function defaultTasks(){
   return [
-    {id:uid(),title:'Financial Modeling Course',desc:'1 hour daily — no skipping. An appointment with my future in investment banking.',color:'g',tags:['⏱ 1hr/day','Ongoing'],complete:false},
-    {id:uid(),title:'Agribusiness Course — Build & Launch',desc:'2 hours daily until done. Launch in 1 week. Havilla Organic Farms goes into the world.',color:'e',tags:['⏱ 2hrs/day','🔥 1-Week Launch'],complete:false},
-    {id:uid(),title:'Morning Movement with My Son',desc:'Small, consistent, non-negotiable. He keeps me accountable. Every morning.',color:'s',tags:['Every Morning','Start Small'],complete:false},
-    {id:uid(),title:'Working Routine — Sleep & Wake',desc:'Fixed times. Talk to my husband. Structure is my freedom.',color:'g',tags:['Conversation Needed','Structure = Freedom'],complete:false},
-    {id:uid(),title:'Farm & Garden — Daily Check',desc:'Check the poultry and garden. Write what is needed. Track progress.',color:'s',tags:['Daily Observation','Log on Farm tab'],complete:false},
+    {id:uid(),title:'Financial Modeling Course',desc:'1 hour daily — no skipping. An appointment with my future in investment banking.',color:'g',tags:['⏱ 1hr/day','Ongoing'],complete:false,longterm:true,dailyLog:{},dailyDoneToday:false},
+    {id:uid(),title:'Agribusiness Course — Build & Launch',desc:'2 hours daily until done. Launch in 1 week. Havilla Organic Farms goes into the world.',color:'e',tags:['⏱ 2hrs/day','🔥 1-Week Launch'],complete:false,longterm:true,dailyLog:{},dailyDoneToday:false},
+    {id:uid(),title:'Morning Movement with My Son',desc:'Small, consistent, non-negotiable. He keeps me accountable. Every morning.',color:'s',tags:['Every Morning','Start Small'],complete:false,longterm:true,dailyLog:{},dailyDoneToday:false},
+    {id:uid(),title:'Working Routine — Sleep & Wake',desc:'Fixed times. Talk to my husband. Structure is my freedom.',color:'g',tags:['Conversation Needed','Structure = Freedom'],complete:false,longterm:false,dailyLog:{},dailyDoneToday:false},
+    {id:uid(),title:'Farm & Garden — Daily Check',desc:'Check the poultry and garden. Write what is needed. Track progress.',color:'s',tags:['Daily Observation','Log on Farm tab'],complete:false,longterm:true,dailyLog:{},dailyDoneToday:false},
   ];
 }
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
@@ -572,12 +600,15 @@ function declare(){
 }
 
 function addDeclaration(){
-  const text=document.getElementById('newDeclText').value.trim();
-  const src=document.getElementById('newDeclSrc').value.trim();
-  if(!text)return;
+  const textEl=document.getElementById('newDeclText');
+  const srcEl=document.getElementById('newDeclSrc');
+  const text=(textEl.value||'').trim();
+  const src=(srcEl.value||'').trim();
+  if(!text){showToast('Write a declaration first');return;}
   state.todayDeclarations.push({id:uid(),text,source:src||'Today',ts:new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'})});
-  document.getElementById('newDeclText').value='';
-  document.getElementById('newDeclSrc').value='';
+  textEl.value='';
+  srcEl.value='';
+  textEl.style.height='auto';
   renderTodayDeclarations();
   persist();
   showToast('Declaration added ✦');
@@ -667,12 +698,14 @@ function submitNewTask(){
   const desc=document.getElementById('atf-desc').value.trim();
   const t1=document.getElementById('atf-tag1').value.trim();
   const t2=document.getElementById('atf-tag2').value.trim();
-  const task={id:uid(),title,desc,color:selectedColor,tags:[t1,t2].filter(Boolean),complete:false};
+  const longterm=document.getElementById('atf-longterm').checked;
+  const task={id:uid(),title,desc,color:selectedColor,tags:[t1,t2].filter(Boolean),complete:false,longterm:longterm,dailyLog:{},dailyDoneToday:false};
   tasks.push(task);
   persistTasks();
   renderTasks();
   // reset form
   ['atf-title','atf-desc','atf-tag1','atf-tag2'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('atf-longterm').checked=false;
   toggleAddTask();
   showToast('Assignment added ✦');
   updateProgress();
@@ -706,22 +739,62 @@ function updateTaskField(id,field,val){
 function renderTasks(){
   const list=document.getElementById('taskList');
   if(!tasks.length){list.innerHTML='<p style="font-size:13px;color:#8a7a6a;padding:12px 0;font-style:italic">No assignments yet. Add one below.</p>';return;}
-  list.innerHTML=tasks.map(t=>`
+  list.innerHTML=tasks.map(t=>{
+    const streakDays=calcDailyStreak(t);
+    const dailyRow=t.longterm&&!t.complete?`
+      <div class="task-daily-row">
+        <button type="button" class="task-daily-btn${t.dailyDoneToday?' done-today':''}" onclick="toggleDailyDone('${t.id}')">
+          ${t.dailyDoneToday?'✓ Done today':'○ Mark today done'}
+        </button>
+        <span class="task-daily-streak">${streakDays>0?`<strong>${streakDays}</strong> day${streakDays>1?'s':''} streak`:'Start today'}</span>
+        <button type="button" class="task-finish-btn" onclick="toggleTask('${t.id}')" title="Mark whole assignment complete">✦ Complete assignment</button>
+      </div>`:
+      (t.longterm&&t.complete?`<div class="task-daily-row"><span class="task-daily-streak">✦ Assignment complete · <strong>${Object.keys(t.dailyLog||{}).length}</strong> days logged</span></div>`:'');
+    return `
     <div class="task-card${t.complete?' complete':''}" id="tc-${t.id}">
       <div class="task-accent ta-${t.color}"></div>
-      <div class="task-toggle${t.complete?' checked':''}" onclick="toggleTask('${t.id}')"></div>
+      ${!t.longterm?`<div class="task-toggle${t.complete?' checked':''}" onclick="toggleTask('${t.id}')"></div>`:'<div style="width:22px;min-width:22px"></div>'}
       <div class="task-body">
         <input class="task-title-input${t.complete?' done-text':''}" value="${esc(t.title)}" placeholder="Assignment title..." oninput="updateTaskField('${t.id}','title',this.value)">
         <textarea class="task-desc-input" placeholder="Description..." oninput="updateTaskField('${t.id}','desc',this.value)">${esc(t.desc||'')}</textarea>
         <div class="task-meta">
           ${t.tags.filter(Boolean).map(tag=>`<span class="tag t${t.color}">${tag}</span>`).join('')}
-          ${t.complete?'<span class="tag ts">✓ Complete</span>':''}
+          ${t.longterm?`<span class="tag te">Long-term</span>`:''}
+          ${t.complete&&!t.longterm?'<span class="tag ts">✓ Complete</span>':''}
         </div>
+        ${dailyRow}
       </div>
-      <button class="task-del" onclick="deleteTask('${t.id}')" title="Delete">×</button>
-    </div>`).join('');
+      <button type="button" class="task-del" onclick="deleteTask('${t.id}')" title="Delete">×</button>
+    </div>`;
+  }).join('');
   // auto-resize textareas
   list.querySelectorAll('.task-desc-input').forEach(ta=>{ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';});
+}
+
+function calcDailyStreak(t){
+  if(!t.dailyLog)return 0;
+  let streak=0,cursor=new Date(TODAY);
+  while(true){
+    const k=cursor.toISOString().split('T')[0];
+    if(!t.dailyLog[k])break;
+    streak++;
+    cursor.setDate(cursor.getDate()-1);
+  }
+  return streak;
+}
+
+function toggleDailyDone(id){
+  const t=tasks.find(x=>x.id===id);
+  if(!t)return;
+  if(!t.dailyLog)t.dailyLog={};
+  t.dailyDoneToday=!t.dailyDoneToday;
+  t.lastDailyDate=TODAY_KEY;
+  if(t.dailyDoneToday){t.dailyLog[TODAY_KEY]=true;}
+  else{delete t.dailyLog[TODAY_KEY];}
+  persistTasks();
+  renderTasks();
+  updateProgress();
+  showToast(t.dailyDoneToday?'Today logged ✦ Keep going!':'Unmarked for today');
 }
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
@@ -730,9 +803,10 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
 // ════════════════════════════════════════
 function updateProgress(){
   const checks=document.querySelectorAll('.checkin-item.done').length;
-  const done=tasks.filter(t=>t.complete).length;
+  const done=tasks.filter(t=>t.complete&&!t.longterm).length;
+  const dailyDone=tasks.filter(t=>t.longterm&&!t.complete&&t.dailyDoneToday).length;
   const total=8+Math.max(tasks.length,1);
-  const pct=Math.round(((checks+done)/total)*100);
+  const pct=Math.round(((checks+done+dailyDone)/total)*100);
   document.getElementById('pctLabel').textContent=pct+'%';
   document.getElementById('progressRing').style.strokeDashoffset=201-(201*Math.min(pct,100)/100);
   const msgs=["Begin with the Lord. One step at a time. You finish what you start.","You are moving, Mercy. His grace carries you.","Halfway there. The Lord orders your steps — keep walking.","Almost. Faithfulness today is tomorrow's harvest.","Well done, good and faithful servant. He sees every step. ✦"];
@@ -786,7 +860,9 @@ async function refreshDashboard(){
   all.sort((a,b)=>a.dateKey.localeCompare(b.dateKey));
   document.getElementById('statDays').textContent=all.length;
   document.getElementById('statDeclared').textContent=all.filter(d=>d.declared).length;
-  document.getElementById('statTasks').textContent=tasks.filter(t=>t.complete).length;
+  const completedTasks=tasks.filter(t=>t.complete&&!t.longterm).length;
+  const longtermDays=tasks.filter(t=>t.longterm).reduce((s,t)=>s+Object.keys(t.dailyLog||{}).length,0);
+  document.getElementById('statTasks').textContent=completedTasks+(longtermDays>0?'+'+longtermDays+'d':'');
   document.getElementById('statPeople').textContent=all.reduce((s,d)=>s+(d.people||[]).length,0);
   const dateMap={};all.forEach(d=>{dateMap[d.dateKey]=d;});
   let streak=0,cursor=new Date(TODAY);
