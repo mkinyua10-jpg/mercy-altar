@@ -484,13 +484,14 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 // ════════════════════════════════════════
 //  IndexedDB
 // ════════════════════════════════════════
-const DB_NAME='MercyAltar',DB_VER=1,STORE='days',TASKS_STORE='tasks';
+const DB_NAME='MercyAltar',DB_VER=3,STORE='days',TASKS_STORE='tasks';
 let db=null;
 function openDB(){
   return new Promise((res,rej)=>{
     const r=indexedDB.open(DB_NAME,DB_VER);
     r.onupgradeneeded=e=>{
       const d=e.target.result;
+      // Always create stores if missing — never delete existing ones
       if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'dateKey'});
       if(!d.objectStoreNames.contains(TASKS_STORE))d.createObjectStore(TASKS_STORE,{keyPath:'id'});
     };
@@ -501,7 +502,7 @@ function openDB(){
 function saveDay(data){return new Promise((res,rej)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(data);tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
 function getDay(k){return new Promise(res=>{const tx=db.transaction(STORE,'readonly');const r=tx.objectStore(STORE).get(k);r.onsuccess=()=>res(r.result||null);r.onerror=()=>res(null);});}
 function getAllDays(){return new Promise(res=>{const tx=db.transaction(STORE,'readonly');const r=tx.objectStore(STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([]);});}
-function saveTasks(tasks){return new Promise((res,rej)=>{const tx=db.transaction(TASKS_STORE,'readwrite');const store=tx.objectStore(TASKS_STORE);store.clear();tasks.forEach(t=>store.put(t));tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+function saveTasks(tasksArr){return new Promise((res,rej)=>{const tx=db.transaction(TASKS_STORE,'readwrite');const store=tx.objectStore(TASKS_STORE);store.clear();tasksArr.forEach(t=>store.put(t));tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
 function getTasks(){return new Promise(res=>{const tx=db.transaction(TASKS_STORE,'readonly');const r=tx.objectStore(TASKS_STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([]);});}
 
 // ════════════════════════════════════════
@@ -580,8 +581,26 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 //  Persist
 // ════════════════════════════════════════
 let saveTimer=null;
-function persist(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveDay(state),500);}
+function persist(){
+  // Save immediately — don't wait for debounce
+  saveDay(state);
+  // Also debounce for rapid successive calls
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>saveDay(state),300);
+}
 function persistTasks(){saveTasks(tasks);}
+
+// Flush everything when app goes to background or is closed
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='hidden'){
+    saveDay(state);
+    saveTasks(tasks);
+  }
+});
+window.addEventListener('pagehide',()=>{
+  saveDay(state);
+  saveTasks(tasks);
+});
 
 // ════════════════════════════════════════
 //  Nav
