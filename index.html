@@ -143,7 +143,31 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .add-task-toggle{width:100%;background:none;border:1.5px dashed rgba(201,168,76,.4);border-radius:12px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);cursor:pointer;margin-top:4px;transition:background .2s;}
 .add-task-toggle:active{background:rgba(201,168,76,.08);}
 
-/* ── BIBLE ── */
+/* ── NOTIFICATIONS / SETTINGS ── */
+.notif-permission-bar{background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.3);border-radius:14px;padding:16px;margin-bottom:16px;}
+.notif-permission-bar p{font-size:13px;color:var(--earth);line-height:1.6;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-style:italic;}
+.notif-permission-bar.granted{background:rgba(122,158,126,.1);border-color:rgba(122,158,126,.3);}
+.notif-permission-bar.denied{background:rgba(200,80,80,.08);border-color:rgba(200,80,80,.2);}
+.notif-enable-btn{background:var(--gold);border:none;border-radius:10px;padding:11px 20px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--deep);cursor:pointer;touch-action:manipulation;width:100%;}
+.notif-enable-btn:active{opacity:.8;}
+.notif-card{background:var(--parchment);border-radius:14px;padding:16px;margin-bottom:10px;}
+.notif-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.notif-card-info{display:flex;align-items:center;gap:12px;}
+.notif-icon{font-size:22px;}
+.notif-title{font-family:'Josefin Sans',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--earth);font-weight:600;}
+.notif-desc{font-size:11px;color:#8a7a6a;letter-spacing:.5px;margin-top:2px;}
+.notif-toggle{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;}
+.notif-toggle input{opacity:0;width:0;height:0;}
+.notif-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:24px;transition:.3s;}
+.notif-slider:before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;}
+.notif-toggle input:checked+.notif-slider{background:var(--sage);}
+.notif-toggle input:checked+.notif-slider:before{transform:translateX(20px);}
+.notif-time-row{display:flex;align-items:center;justify-content:space-between;}
+.notif-time-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#8a7a6a;}
+.notif-time-input{border:1.5px solid rgba(201,168,76,.35);border-radius:8px;padding:7px 10px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--earth);background:#fff;outline:none;}
+.notif-test-btn{width:100%;margin-top:8px;background:var(--earth);border:none;border-radius:10px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);cursor:pointer;touch-action:manipulation;}
+.notif-test-btn:active{opacity:.8;}
+.notif-note{font-size:11px;color:#8a7a6a;line-height:1.7;margin-top:14px;font-family:'Cormorant Garamond',serif;font-style:italic;text-align:center;}
 .bible-controls{background:var(--parchment);border-radius:14px;padding:14px;margin-bottom:12px;}
 .bible-nav-row{display:flex;gap:8px;margin-bottom:10px;}
 .bible-nav-row select{flex:1;border:1.5px solid rgba(201,168,76,.35);border-radius:8px;padding:8px 6px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.5px;color:var(--earth);background:#fff;outline:none;-webkit-appearance:none;appearance:none;text-align:center;}
@@ -549,14 +573,117 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
   </div>
 </div>
 
-<!-- TAB BAR -->
-<nav class="tab-bar">
+<!-- ══════════════════════════════════════
+     PAGE — SETTINGS / NOTIFICATIONS
+══════════════════════════════════════ -->
+<div class="page" id="page-settings">
+  <div class="page-header">
+    <div class="ornament">✦ Reminders</div>
+    <h1>Notification <em>Settings</em></h1>
+  </div>
+
+  <div class="notif-permission-bar" id="notifPermBar">
+    <p id="notifPermText">Enable notifications so the app can remind you to meet with the Lord each day.</p>
+    <button type="button" class="notif-enable-btn" id="notifEnableBtn" onclick="requestNotifPermission()">Enable Notifications</button>
+  </div>
+
+  <div class="notif-settings-wrap" id="notifSettingsWrap">
+
+    <!-- Morning Altar -->
+    <div class="notif-card">
+      <div class="notif-card-header">
+        <div class="notif-card-info">
+          <span class="notif-icon">🌅</span>
+          <div>
+            <div class="notif-title">Morning Altar</div>
+            <div class="notif-desc">Time to meet with the Lord</div>
+          </div>
+        </div>
+        <label class="notif-toggle">
+          <input type="checkbox" id="notif-morning-on" onchange="saveNotifSettings()">
+          <span class="notif-slider"></span>
+        </label>
+      </div>
+      <div class="notif-time-row">
+        <span class="notif-time-label">Time</span>
+        <input type="time" id="notif-morning-time" value="05:45" class="notif-time-input" onchange="saveNotifSettings()">
+      </div>
+    </div>
+
+    <!-- Evening Altar -->
+    <div class="notif-card">
+      <div class="notif-card-header">
+        <div class="notif-card-info">
+          <span class="notif-icon">🌙</span>
+          <div>
+            <div class="notif-title">Evening Altar</div>
+            <div class="notif-desc">Review the day with the Lord</div>
+          </div>
+        </div>
+        <label class="notif-toggle">
+          <input type="checkbox" id="notif-evening-on" onchange="saveNotifSettings()">
+          <span class="notif-slider"></span>
+        </label>
+      </div>
+      <div class="notif-time-row">
+        <span class="notif-time-label">Time</span>
+        <input type="time" id="notif-evening-time" value="21:30" class="notif-time-input" onchange="saveNotifSettings()">
+      </div>
+    </div>
+
+    <!-- Bible Reading -->
+    <div class="notif-card">
+      <div class="notif-card-header">
+        <div class="notif-card-info">
+          <span class="notif-icon">📖</span>
+          <div>
+            <div class="notif-title">Bible Reading</div>
+            <div class="notif-desc">Open the Word today</div>
+          </div>
+        </div>
+        <label class="notif-toggle">
+          <input type="checkbox" id="notif-bible-on" onchange="saveNotifSettings()">
+          <span class="notif-slider"></span>
+        </label>
+      </div>
+      <div class="notif-time-row">
+        <span class="notif-time-label">Time</span>
+        <input type="time" id="notif-bible-time" value="08:00" class="notif-time-input" onchange="saveNotifSettings()">
+      </div>
+    </div>
+
+    <!-- Tasks Check-in -->
+    <div class="notif-card">
+      <div class="notif-card-header">
+        <div class="notif-card-info">
+          <span class="notif-icon">📋</span>
+          <div>
+            <div class="notif-title">Assignments Check-in</div>
+            <div class="notif-desc">Check your daily tasks</div>
+          </div>
+        </div>
+        <label class="notif-toggle">
+          <input type="checkbox" id="notif-tasks-on" onchange="saveNotifSettings()">
+          <span class="notif-slider"></span>
+        </label>
+      </div>
+      <div class="notif-time-row">
+        <span class="notif-time-label">Time</span>
+        <input type="time" id="notif-tasks-time" value="09:00" class="notif-time-input" onchange="saveNotifSettings()">
+      </div>
+    </div>
+
+    <button type="button" class="notif-test-btn" onclick="sendTestNotification()">🔔 Send Test Notification</button>
+    <p class="notif-note">Notifications are scheduled locally on your device. They will fire daily at the times you set, even when the app is closed — as long as notifications are enabled for this app in your phone settings.</p>
+  </div>
+</div>
   <button class="tab-btn active" onclick="showPage('decl',this)"><span class="tab-icon">✦</span><span>I Am</span></button>
   <button class="tab-btn" onclick="showPage('today',this)"><span class="tab-icon">📋</span><span>Today</span></button>
+  <button class="tab-btn" onclick="showPage('bible',this)"><span class="tab-icon">📖</span><span>Bible</span></button>
   <button class="tab-btn" onclick="showPage('farm',this)"><span class="tab-icon">🌿</span><span>Farm</span></button>
   <button class="tab-btn" onclick="showPage('stand',this)"><span class="tab-icon">🙏</span><span>Stand</span></button>
-  <button class="tab-btn" onclick="showPage('bible',this)"><span class="tab-icon">📖</span><span>Bible</span></button>
   <button class="tab-btn" onclick="showPage('dash',this)"><span class="tab-icon">📈</span><span>History</span></button>
+  <button class="tab-btn" onclick="showPage('settings',this)"><span class="tab-icon">🔔</span><span>Alerts</span></button>
 </nav>
 
 <script>
@@ -645,6 +772,9 @@ async function boot(){
   addDeclBtn.addEventListener('click',function(e){e.preventDefault();addDeclaration();});
   // Wire up Declare button
   document.getElementById('declareBtn').addEventListener('click',function(e){e.preventDefault();declare();});
+  // Init notifications
+  loadNotifSettings();
+  scheduleAllNotifications();
   // Init bible notes listener
   initBibleNotes();
 }
@@ -696,6 +826,7 @@ function showPage(name,btn){
   window.scrollTo(0,0);
   if(name==='dash')refreshDashboard();
   if(name==='bible')initBible();
+  if(name==='settings')initNotifUI();
 }
 
 // ════════════════════════════════════════
@@ -1290,6 +1421,149 @@ function loadBibleState(){
     bibleState.readLog=state.bibleState.readLog||{};
     bibleState.notes=state.bibleState.notes||{};
   }
+}
+
+// ════════════════════════════════════════
+//  NOTIFICATIONS
+// ════════════════════════════════════════
+const NOTIF_KEY='mercyAltar_notifSettings';
+
+const NOTIF_DEFAULTS={
+  morning:{on:false,time:'05:45'},
+  evening:{on:false,time:'21:30'},
+  bible:  {on:false,time:'08:00'},
+  tasks:  {on:false,time:'09:00'}
+};
+
+const NOTIF_MESSAGES={
+  morning:{title:'🌅 Morning Altar',body:'It\'s time to meet with the Lord. Your altar is waiting. ✦'},
+  evening:{title:'🌙 Evening Altar',body:'Come review the day with the Lord. He is waiting to hear from you. ✦'},
+  bible:  {title:'📖 Bible Reading',body:'Open the Word today — let Him speak to you. ✦'},
+  tasks:  {title:'📋 Your Assignments',body:'Check in on your daily assignments. Faithfulness today is tomorrow\'s harvest. ✦'}
+};
+
+let notifSettings={...NOTIF_DEFAULTS};
+let notifTimers={};
+
+function loadNotifSettings(){
+  try{
+    const saved=localStorage.getItem(NOTIF_KEY);
+    if(saved)notifSettings={...NOTIF_DEFAULTS,...JSON.parse(saved)};
+  }catch(e){}
+}
+
+function saveNotifSettings(){
+  ['morning','evening','bible','tasks'].forEach(k=>{
+    notifSettings[k].on=document.getElementById(`notif-${k}-on`).checked;
+    notifSettings[k].time=document.getElementById(`notif-${k}-time`).value;
+  });
+  try{localStorage.setItem(NOTIF_KEY,JSON.stringify(notifSettings));}catch(e){}
+  scheduleAllNotifications();
+  showToast('Reminder settings saved ✦');
+}
+
+function initNotifUI(){
+  loadNotifSettings();
+  updatePermissionBar();
+  ['morning','evening','bible','tasks'].forEach(k=>{
+    document.getElementById(`notif-${k}-on`).checked=notifSettings[k].on;
+    document.getElementById(`notif-${k}-time`).value=notifSettings[k].time;
+  });
+}
+
+function updatePermissionBar(){
+  const bar=document.getElementById('notifPermBar');
+  const btn=document.getElementById('notifEnableBtn');
+  const txt=document.getElementById('notifPermText');
+  const perm=Notification.permission;
+  if(perm==='granted'){
+    bar.className='notif-permission-bar granted';
+    txt.textContent='✦ Notifications are enabled. Set your reminder times below and toggle each one on.';
+    btn.textContent='✓ Notifications Enabled';
+    btn.style.background='var(--sage)';
+    btn.disabled=true;
+  } else if(perm==='denied'){
+    bar.className='notif-permission-bar denied';
+    txt.textContent='Notifications are blocked. Go to your phone Settings → this app/browser → enable Notifications, then come back.';
+    btn.textContent='Notifications Blocked';
+    btn.style.background='#aaa';
+    btn.disabled=true;
+  } else {
+    bar.className='notif-permission-bar';
+    txt.textContent='Tap below to enable notifications so the app can remind you to meet with the Lord each day.';
+    btn.textContent='Enable Notifications';
+    btn.disabled=false;
+  }
+}
+
+async function requestNotifPermission(){
+  if(!('Notification' in window)){showToast('Notifications not supported on this browser');return;}
+  const result=await Notification.requestPermission();
+  updatePermissionBar();
+  if(result==='granted'){
+    scheduleAllNotifications();
+    showToast('Notifications enabled ✦');
+  } else {
+    showToast('Please enable notifications in your phone settings');
+  }
+}
+
+function scheduleAllNotifications(){
+  // Clear all existing timers
+  Object.values(notifTimers).forEach(t=>clearTimeout(t));
+  notifTimers={};
+  if(Notification.permission!=='granted')return;
+  ['morning','evening','bible','tasks'].forEach(k=>{
+    if(notifSettings[k].on)scheduleNotification(k);
+  });
+}
+
+function scheduleNotification(key){
+  const[hh,mm]=notifSettings[key].time.split(':').map(Number);
+  const now=new Date();
+  const fire=new Date();
+  fire.setHours(hh,mm,0,0);
+  // If time already passed today, schedule for tomorrow
+  if(fire<=now)fire.setDate(fire.getDate()+1);
+  const delay=fire-now;
+  notifTimers[key]=setTimeout(()=>{
+    sendNotification(key);
+    // Reschedule for next day
+    notifTimers[key]=setTimeout(()=>scheduleNotification(key),1000);
+  },delay);
+}
+
+function sendNotification(key){
+  if(Notification.permission!=='granted')return;
+  const msg=NOTIF_MESSAGES[key];
+  try{
+    const n=new Notification(msg.title,{
+      body:msg.body,
+      icon:'/icon-192.png',
+      badge:'/icon-192.png',
+      tag:key,
+      renotify:true
+    });
+    n.onclick=()=>{window.focus();n.close();};
+  }catch(e){
+    // Fallback for service worker context
+    if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+      navigator.serviceWorker.controller.postMessage({type:'NOTIFY',key,title:msg.title,body:msg.body});
+    }
+  }
+}
+
+function sendTestNotification(){
+  if(Notification.permission!=='granted'){
+    showToast('Enable notifications first');
+    return;
+  }
+  new Notification('🔔 Mercy\'s Altar — Test',{
+    body:'Notifications are working! You\'ll receive your daily reminders at the times you set. ✦',
+    icon:'/icon-192.png',
+    tag:'test'
+  });
+  showToast('Test notification sent!');
 }
 
 // ════════════════════════════════════════
