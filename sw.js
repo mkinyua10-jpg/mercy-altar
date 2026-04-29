@@ -1,4 +1,4 @@
-const CACHE = 'mercy-altar-v6';
+const CACHE = 'mercy-altar-v8';
 const ASSETS = [
   '/',
   '/index.html',

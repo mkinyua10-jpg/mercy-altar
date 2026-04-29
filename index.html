@@ -13,16 +13,31 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#C9A84C;--gold-light:#E8C97A;--earth:#5C3D2E;--cream:#FAF6EE;--parchment:#F0E8D5;--sage:#7A9E7E;--deep:#1A120A;--shadow:rgba(92,61,46,0.15);}
+:root{
+  --gold:#B8860B;
+  --gold-light:#D4A017;
+  --gold-bg:rgba(184,134,11,.12);
+  --earth:#3D1F0A;
+  --cream:#FAF6EE;
+  --parchment:#F0E8D5;
+  --sage:#4A8C55;
+  --sage-bg:rgba(74,140,85,.12);
+  --deep:#1A0A00;
+  --silver:#6B7280;
+  --shadow:rgba(61,31,10,0.18);
+  --text:#2C1A08;
+  --text-muted:#6B4F35;
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
 body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-serif;min-height:100vh;overflow-x:hidden;
   background-image:radial-gradient(ellipse at 20% 10%,rgba(201,168,76,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 90%,rgba(122,158,126,.08) 0%,transparent 50%);}
 
 /* ── TAB BAR ── */
-.tab-bar{position:fixed;bottom:0;left:0;right:0;background:var(--earth);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -4px 20px rgba(0,0,0,.2);}
-.tab-btn{flex:1;padding:12px 4px 10px;border:none;background:none;color:rgba(240,232,213,.45);cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;transition:color .2s;}
-.tab-btn.active{color:var(--gold);}
+.tab-bar{position:fixed;bottom:0;left:0;right:0;background:#1A0A00;display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -3px 16px rgba(0,0,0,.35);}
+.tab-btn{flex:1;padding:12px 4px 10px;border:none;background:none;color:#C4A882;cursor:pointer;font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;transition:color .2s;}
+.tab-btn.active{color:#F5C842;}
+.tab-btn.active .tab-icon{filter:drop-shadow(0 0 4px rgba(245,200,66,.5));}
 .tab-icon{font-size:20px;line-height:1;}
 
 /* ── PAGES ── */
@@ -37,7 +52,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .page-header h1 em{font-style:italic;color:var(--gold);}
 .date-line{font-size:10px;letter-spacing:2.5px;color:var(--sage);text-transform:uppercase;margin-top:6px;}
 .section-label{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--earth);margin:22px 0 12px;display:flex;align-items:center;gap:8px;}
-.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.35;}
+.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.6;}
 
 /* ── DECLARATIONS PAGE ── */
 .decl-hero{background:linear-gradient(145deg,var(--earth),#2E1507);border-radius:20px;padding:26px 22px;margin-bottom:20px;position:relative;overflow:hidden;}
@@ -53,44 +68,44 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .iam-label{font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;font-weight:600;}
 .decl-card.s .iam-label{color:var(--sage);}.decl-card.e .iam-label{color:var(--earth);}
 .decl-text{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4vw,20px);color:var(--earth);line-height:1.55;margin-bottom:10px;}
-.decl-ref{font-size:10px;letter-spacing:2px;color:#8a7a6a;text-transform:uppercase;}
-.declare-btn{width:100%;background:var(--gold);border:none;border-radius:12px;padding:16px;font-family:'Josefin Sans',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--deep);cursor:pointer;margin-top:20px;transition:background .2s;}
-.declare-btn.declared{background:var(--sage);color:white;}
+.decl-ref{font-size:10px;letter-spacing:2px;color:#5C4030;text-transform:uppercase;}
+.declare-btn{width:100%;background:var(--gold);border:none;border-radius:12px;padding:16px;font-family:'Josefin Sans',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#fff;cursor:pointer;margin-top:20px;transition:background .2s;box-shadow:0 3px 12px rgba(184,134,11,.4);}
+.declare-btn.declared{background:var(--sage);color:white;box-shadow:0 3px 12px rgba(74,140,85,.35);}
 
 /* ── TODAY'S DECLARATIONS (custom, editable) ── */
-.today-decl-card{background:white;border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;position:relative;}
+.today-decl-card{background:white;border:2px solid rgba(184,134,11,.3);border-radius:14px;padding:18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;position:relative;}
 .today-decl-card.received{border-left:4px solid var(--gold);}
 .today-decl-card .decl-body{flex:1;}
 .today-decl-card .decl-body p{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--earth);line-height:1.55;margin-bottom:4px;}
 .today-decl-card .decl-body small{font-size:10px;letter-spacing:1.5px;color:var(--sage);text-transform:uppercase;}
-.decl-del-btn{background:none;border:none;color:#c0a898;font-size:20px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;margin-top:2px;}
+.decl-del-btn{background:none;border:none;color:#9A7A60;font-size:20px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;margin-top:2px;}
 .add-decl-area{background:var(--parchment);border-radius:14px;padding:16px;margin-bottom:6px;}
-.add-decl-area textarea{width:100%;border:1.5px solid rgba(201,168,76,.35);border-radius:10px;outline:none;background:#fff;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--earth);resize:none;min-height:80px;line-height:1.6;padding:10px 12px;box-sizing:border-box;}
-.add-decl-area textarea:focus{border-color:rgba(201,168,76,.7);}
-.add-decl-area textarea::placeholder{color:#b0a090;}
+.add-decl-area textarea{width:100%;border:2px solid var(--gold);border-radius:10px;outline:none;background:#fff;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--text);resize:none;min-height:80px;line-height:1.6;padding:10px 12px;box-sizing:border-box;}
+.add-decl-area textarea:focus{border-color:var(--gold-light);box-shadow:0 0 0 3px rgba(184,134,11,.15);}
+.add-decl-area textarea::placeholder{color:#9A7A5A;}
 .add-decl-row{display:flex;gap:8px;margin-top:8px;}
-.add-decl-src{flex:1;border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:8px 10px;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--deep);background:white;outline:none;}
-.add-decl-src::placeholder{color:#b0a090;}
-.add-decl-btn-full{display:block;width:100%;margin-top:10px;background:var(--earth);border:none;border-radius:10px;padding:14px 16px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--cream);cursor:pointer;-webkit-appearance:none;appearance:none;touch-action:manipulation;}
-.add-decl-btn-full:active{opacity:.75;}
+.add-decl-src{flex:1;border:2px solid rgba(184,134,11,.5);border-radius:8px;padding:8px 10px;font-family:'Josefin Sans',sans-serif;font-size:11px;color:var(--text);background:white;outline:none;}
+.add-decl-src::placeholder{color:#9A7A5A;}
+.add-decl-btn-full{display:block;width:100%;margin-top:10px;background:var(--earth);border:none;border-radius:10px;padding:14px 16px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#fff;cursor:pointer;-webkit-appearance:none;appearance:none;touch-action:manipulation;box-shadow:0 3px 10px rgba(61,31,10,.3);}
+.add-decl-btn-full:active{opacity:.8;}
 
 /* ── TODAY / CHECK-INS ── */
-.progress-wrap{background:var(--parchment);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:18px;display:flex;align-items:center;gap:18px;margin-bottom:20px;}
+.progress-wrap{background:var(--parchment);border:2px solid rgba(184,134,11,.3);border-radius:16px;padding:18px;display:flex;align-items:center;gap:18px;margin-bottom:20px;}
 .ring-wrap{position:relative;width:80px;height:80px;flex-shrink:0;}
 .ring-wrap svg{transform:rotate(-90deg);}
 .ring-bg{fill:none;stroke:rgba(201,168,76,.15);stroke-width:7;}
-.ring-fill{fill:none;stroke:var(--gold);stroke-width:7;stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:201;transition:stroke-dashoffset .6s ease;}
+.ring-fill{fill:none;stroke:#B8860B;stroke-width:8;stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:201;transition:stroke-dashoffset .6s ease;}
 .ring-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .ring-pct{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--earth);line-height:1;}
 .ring-sub{font-size:7px;letter-spacing:1px;color:var(--sage);text-transform:uppercase;margin-top:2px;}
 .progress-words h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--earth);margin-bottom:4px;}
-.progress-words p{font-size:12px;color:#6a5a4a;line-height:1.6;}
-.checkin-card{background:white;border-radius:14px;padding:18px;margin-bottom:14px;border:1px solid rgba(201,168,76,.15);}
+.progress-words p{font-size:12px;color:#4A3020;line-height:1.6;}
+.checkin-card{background:white;border-radius:14px;padding:18px;margin-bottom:14px;border:1.5px solid rgba(184,134,11,.25);}
 .checkin-card.morning{border-top:3px solid var(--gold);}.checkin-card.evening{border-top:3px solid var(--sage);}
 .checkin-card h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--earth);margin-bottom:14px;}
 .checkin-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;cursor:pointer;padding:8px 10px;border-radius:10px;transition:background .15s;}
 .checkin-item:active{background:var(--parchment);}
-.cb-box{width:20px;height:20px;min-width:20px;border:2px solid var(--gold);border-radius:5px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:white;margin-top:2px;}
+.cb-box{width:22px;height:22px;min-width:22px;border:2.5px solid var(--gold);border-radius:5px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:white;margin-top:2px;}
 .cb-sage{border-color:var(--sage);}
 .cb-box.checked{background:var(--gold);border-color:var(--gold);}
 .cb-box.checked::after{content:'✓';color:white;font-size:12px;font-weight:bold;}
@@ -99,21 +114,21 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .checkin-item.done .cb-label{color:var(--sage);text-decoration:line-through;text-decoration-color:rgba(122,158,126,.4);}
 
 /* ── JOURNAL BLOCK (after altar check-ins) ── */
-.journal-block{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(122,158,126,.06));border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:18px;margin-bottom:20px;}
+.journal-block{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(122,158,126,.06));border:2px solid rgba(184,134,11,.3);border-radius:14px;padding:18px;margin-bottom:20px;}
 .journal-block .jb-label{font-size:10px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;font-weight:600;}
 .journal-block textarea{width:100%;border:none;outline:none;background:transparent;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--earth);resize:none;min-height:90px;line-height:1.7;}
-.journal-block textarea::placeholder{color:#c0a898;font-style:italic;}
+.journal-block textarea::placeholder{color:#9A7A60;font-style:italic;}
 .journal-block .jb-save{display:inline-flex;align-items:center;gap:4px;font-size:10px;letter-spacing:1px;color:var(--sage);text-transform:uppercase;margin-top:4px;opacity:0;transition:opacity .4s;}
 .journal-block .jb-save.show{opacity:1;}
 
 /* ── TASKS ── */
-.task-card{background:white;border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:16px 16px 16px 20px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;position:relative;overflow:hidden;transition:opacity .3s;}
+.task-card{background:white;border:1.5px solid rgba(184,134,11,.28);border-radius:14px;padding:16px 16px 16px 20px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;position:relative;overflow:hidden;transition:opacity .3s;}
 .task-card.complete{opacity:.45;background:var(--parchment);}
 .task-accent{position:absolute;left:0;top:0;bottom:0;width:4px;}
 .ta-g{background:var(--gold);}.ta-e{background:var(--earth);}.ta-s{background:var(--sage);}
-.task-toggle{width:22px;height:22px;min-width:22px;border:2px solid var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:white;transition:all .2s;margin-top:2px;flex-shrink:0;}
-.task-toggle.checked{background:var(--sage);border-color:var(--sage);}
-.task-toggle.checked::after{content:'✓';color:white;font-size:12px;font-weight:bold;}
+.task-toggle{width:24px;height:24px;min-width:24px;border:2.5px solid var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:white;transition:all .2s;margin-top:2px;flex-shrink:0;}
+.task-toggle.checked{background:var(--sage);border-color:var(--sage);box-shadow:0 2px 6px rgba(74,140,85,.35);}
+.task-toggle.checked::after{content:'✓';color:white;font-size:13px;font-weight:bold;}
 .task-body{flex:1;min-width:0;}
 .task-title-input{width:100%;border:none;outline:none;background:transparent;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--earth);font-family:'Josefin Sans',sans-serif;text-transform:uppercase;}
 .task-title-input.done-text{color:var(--sage);text-decoration:line-through;}
@@ -123,39 +138,39 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .tg{background:rgba(201,168,76,.14);color:var(--gold);border:1px solid rgba(201,168,76,.28);}
 .te{background:rgba(92,61,46,.1);color:var(--earth);border:1px solid rgba(92,61,46,.2);}
 .ts{background:rgba(122,158,126,.14);color:var(--sage);border:1px solid rgba(122,158,126,.28);}
-.task-del{background:none;border:none;color:#c0a898;font-size:18px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;margin-top:2px;}
+.task-del{background:none;border:none;color:#9A7A60;font-size:18px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;margin-top:2px;}
 
 /* Add task form */
 .add-task-form{background:var(--parchment);border-radius:14px;padding:16px;margin-bottom:16px;border:1px dashed rgba(201,168,76,.35);}
 .add-task-form .atf-label{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;font-weight:600;}
 .atf-row{display:flex;gap:8px;margin-bottom:8px;}
 .atf-input{flex:1;border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:10px 12px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--deep);background:white;outline:none;}
-.atf-input::placeholder{color:#b0a090;}
+.atf-input::placeholder{color:#8A6A50;}
 .atf-color{width:38px;height:38px;border:1px solid rgba(201,168,76,.3);border-radius:8px;background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
 .atf-color.sel-g{background:rgba(201,168,76,.2);border-color:var(--gold);}
 .atf-color.sel-e{background:rgba(92,61,46,.15);border-color:var(--earth);}
 .atf-color.sel-s{background:rgba(122,158,126,.2);border-color:var(--sage);}
-.atf-desc{width:100%;border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:10px 12px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--deep);background:white;outline:none;margin-bottom:8px;}
-.atf-desc::placeholder{color:#b0a090;}
-.atf-tag-input{flex:1;border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:8px 10px;font-family:'Josefin Sans',sans-serif;font-size:12px;color:var(--deep);background:white;outline:none;}
-.atf-tag-input::placeholder{color:#b0a090;}
+.atf-desc{width:100%;border:2px solid rgba(184,134,11,.3);border-radius:8px;padding:10px 12px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--deep);background:white;outline:none;margin-bottom:8px;}
+.atf-desc::placeholder{color:#8A6A50;}
+.atf-tag-input{flex:1;border:2px solid rgba(184,134,11,.3);border-radius:8px;padding:8px 10px;font-family:'Josefin Sans',sans-serif;font-size:12px;color:var(--deep);background:white;outline:none;}
+.atf-tag-input::placeholder{color:#8A6A50;}
 .atf-submit{width:100%;background:var(--earth);border:none;border-radius:10px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--cream);cursor:pointer;margin-top:4px;}
-.add-task-toggle{width:100%;background:none;border:1.5px dashed rgba(201,168,76,.4);border-radius:12px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);cursor:pointer;margin-top:4px;transition:background .2s;}
-.add-task-toggle:active{background:rgba(201,168,76,.08);}
+.add-task-toggle{width:100%;background:none;border:2px dashed var(--gold);border-radius:12px;padding:13px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;cursor:pointer;margin-top:4px;transition:background .2s;touch-action:manipulation;}
+.add-task-toggle:active{background:var(--gold-bg);}
 
 /* ── NOTIFICATIONS / SETTINGS ── */
 .notif-permission-bar{background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.3);border-radius:14px;padding:16px;margin-bottom:16px;}
 .notif-permission-bar p{font-size:13px;color:var(--earth);line-height:1.6;margin-bottom:12px;font-family:'Cormorant Garamond',serif;font-style:italic;}
 .notif-permission-bar.granted{background:rgba(122,158,126,.1);border-color:rgba(122,158,126,.3);}
 .notif-permission-bar.denied{background:rgba(200,80,80,.08);border-color:rgba(200,80,80,.2);}
-.notif-enable-btn{background:var(--gold);border:none;border-radius:10px;padding:11px 20px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--deep);cursor:pointer;touch-action:manipulation;width:100%;}
+.notif-enable-btn{background:var(--gold);border:none;border-radius:10px;padding:12px 20px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#fff;cursor:pointer;touch-action:manipulation;width:100%;box-shadow:0 3px 10px rgba(184,134,11,.35);}
 .notif-enable-btn:active{opacity:.8;}
 .notif-card{background:var(--parchment);border-radius:14px;padding:16px;margin-bottom:10px;}
 .notif-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .notif-card-info{display:flex;align-items:center;gap:12px;}
 .notif-icon{font-size:22px;}
 .notif-title{font-family:'Josefin Sans',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--earth);font-weight:600;}
-.notif-desc{font-size:11px;color:#8a7a6a;letter-spacing:.5px;margin-top:2px;}
+.notif-desc{font-size:11px;color:#5C4030;letter-spacing:.5px;margin-top:2px;}
 .notif-toggle{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;}
 .notif-toggle input{opacity:0;width:0;height:0;}
 .notif-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:24px;transition:.3s;}
@@ -163,11 +178,11 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .notif-toggle input:checked+.notif-slider{background:var(--sage);}
 .notif-toggle input:checked+.notif-slider:before{transform:translateX(20px);}
 .notif-time-row{display:flex;align-items:center;justify-content:space-between;}
-.notif-time-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#8a7a6a;}
+.notif-time-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#5C4030;}
 .notif-time-input{border:1.5px solid rgba(201,168,76,.35);border-radius:8px;padding:7px 10px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--earth);background:#fff;outline:none;}
 .notif-test-btn{width:100%;margin-top:8px;background:var(--earth);border:none;border-radius:10px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);cursor:pointer;touch-action:manipulation;}
 .notif-test-btn:active{opacity:.8;}
-.notif-note{font-size:11px;color:#8a7a6a;line-height:1.7;margin-top:14px;font-family:'Cormorant Garamond',serif;font-style:italic;text-align:center;}
+.notif-note{font-size:11px;color:#5C4030;line-height:1.7;margin-top:14px;font-family:'Cormorant Garamond',serif;font-style:italic;text-align:center;}
 .bible-controls{background:var(--parchment);border-radius:14px;padding:14px;margin-bottom:12px;}
 .bible-nav-row{display:flex;gap:8px;margin-bottom:10px;}
 .bible-nav-row select{flex:1;border:1.5px solid rgba(201,168,76,.35);border-radius:8px;padding:8px 6px;font-family:'Josefin Sans',sans-serif;font-size:11px;letter-spacing:.5px;color:var(--earth);background:#fff;outline:none;-webkit-appearance:none;appearance:none;text-align:center;}
@@ -179,11 +194,11 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .bible-plan-info{display:flex;flex-direction:column;gap:2px;}
 .bible-plan-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--sage);}
 .bible-plan-status{font-size:12px;color:var(--earth);font-family:'Cormorant Garamond',serif;font-style:italic;}
-.bible-mark-btn{background:var(--sage);border:none;border-radius:8px;padding:8px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#fff;cursor:pointer;white-space:nowrap;touch-action:manipulation;flex-shrink:0;}
-.bible-mark-btn.marked{background:rgba(122,158,126,.2);color:var(--sage);border:1.5px solid var(--sage);}
+.bible-mark-btn{background:var(--sage);border:none;border-radius:8px;padding:9px 14px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#fff;cursor:pointer;white-space:nowrap;touch-action:manipulation;flex-shrink:0;box-shadow:0 2px 8px rgba(74,140,85,.35);}
+.bible-mark-btn.marked{background:var(--sage-bg);color:var(--sage);border:2px solid var(--sage);box-shadow:none;}
 .bible-mark-btn:active{opacity:.75;}
 .bible-text-wrap{background:var(--parchment);border-radius:14px;padding:20px 16px;margin-bottom:4px;max-height:55vh;overflow-y:auto;}
-.bible-loading{font-family:'Cormorant Garamond',serif;font-style:italic;color:#8a7a6a;font-size:16px;text-align:center;padding:20px 0;}
+.bible-loading{font-family:'Cormorant Garamond',serif;font-style:italic;color:#5C4030;font-size:16px;text-align:center;padding:20px 0;}
 .bible-verse{display:flex;gap:8px;margin-bottom:10px;line-height:1.75;}
 .bible-verse-num{font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:1px;color:var(--gold);min-width:18px;padding-top:4px;flex-shrink:0;}
 .bible-verse-text{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--deep);}
@@ -192,14 +207,14 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .bible-notes-ta:focus{border-color:rgba(201,168,76,.7);}
 .bible-read-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
 .bible-read-chip{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:4px 10px;font-size:10px;letter-spacing:.5px;color:var(--earth);font-family:'Josefin Sans',sans-serif;display:flex;align-items:center;gap:5px;}
-.bible-read-chip button{background:none;border:none;color:#8a7a6a;cursor:pointer;font-size:12px;padding:0;line-height:1;}
+.bible-read-chip button{background:none;border:none;color:#5C4030;cursor:pointer;font-size:12px;padding:0;line-height:1;}
 .bible-error{font-family:'Cormorant Garamond',serif;font-style:italic;color:#c0392b;font-size:15px;text-align:center;padding:16px 0;}
 .task-daily-row{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(201,168,76,.12);flex-wrap:wrap;}
-.task-daily-btn{display:flex;align-items:center;gap:5px;background:rgba(201,168,76,.1);border:1.5px solid rgba(201,168,76,.3);border-radius:8px;padding:6px 11px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);cursor:pointer;transition:all .2s;flex-shrink:0;}
-.task-daily-btn.done-today{background:rgba(122,158,126,.15);border-color:var(--sage);color:var(--sage);}
-.task-daily-streak{font-size:10px;letter-spacing:1px;color:#8a7a6a;text-transform:uppercase;flex:1;}
+.task-daily-btn{display:flex;align-items:center;gap:5px;background:var(--gold-bg);border:2px solid var(--gold);border-radius:8px;padding:7px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);font-weight:600;cursor:pointer;transition:all .2s;flex-shrink:0;touch-action:manipulation;}
+.task-daily-btn.done-today{background:var(--sage-bg);border-color:var(--sage);color:var(--sage);}
+.task-daily-streak{font-size:10px;letter-spacing:1px;color:#5C4030;text-transform:uppercase;flex:1;}
 .task-daily-streak strong{color:var(--earth);}
-.task-finish-btn{display:flex;align-items:center;gap:4px;background:rgba(92,61,46,.08);border:1.5px solid rgba(92,61,46,.2);border-radius:8px;padding:6px 11px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--earth);cursor:pointer;transition:all .2s;flex-shrink:0;}
+.task-finish-btn{display:flex;align-items:center;gap:4px;background:rgba(61,31,10,.08);border:2px solid rgba(61,31,10,.35);border-radius:8px;padding:6px 11px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--earth);cursor:pointer;transition:all .2s;flex-shrink:0;}
 .task-finish-btn:active{background:rgba(92,61,46,.15);}
 .atf-longterm-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px;color:var(--earth);font-family:'Josefin Sans',sans-serif;letter-spacing:.5px;}
 .atf-longterm-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
@@ -211,7 +226,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .farm-ta{width:100%;border:none;outline:none;background:var(--parchment);border-radius:8px;padding:12px;font-family:'Josefin Sans',sans-serif;font-size:13px;color:var(--deep);resize:none;min-height:80px;line-height:1.6;}
 .save-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;letter-spacing:1px;color:var(--sage);text-transform:uppercase;margin-top:6px;opacity:0;transition:opacity .4s;}
 .save-badge.show{opacity:1;}
-.routine-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:white;border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:14px;margin-bottom:20px;}
+.routine-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:white;border:1.5px solid rgba(184,134,11,.28);border-radius:14px;padding:14px;margin-bottom:20px;}
 .routine-slot{background:var(--parchment);border-radius:10px;padding:10px 4px;text-align:center;}
 .slot-time{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:var(--earth);}
 .slot-label{font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--sage);margin-top:2px;}
@@ -226,8 +241,8 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .stand-add{background:var(--gold);border:none;border-radius:10px;padding:12px 16px;font-family:'Josefin Sans',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:var(--deep);cursor:pointer;}
 .stand-chip{display:flex;align-items:center;gap:10px;background:var(--parchment);border:1px solid rgba(201,168,76,.22);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
 .stand-chip span{flex:1;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--deep);}
-.stand-chip small{font-size:10px;color:#b0a090;letter-spacing:1px;}
-.stand-chip button{background:none;border:none;color:#b0a090;font-size:18px;cursor:pointer;}
+.stand-chip small{font-size:10px;color:#8A6A50;letter-spacing:1px;}
+.stand-chip button{background:none;border:none;color:#8A6A50;font-size:18px;cursor:pointer;}
 
 /* ── DASHBOARD ── */
 .streak-banner{background:linear-gradient(145deg,var(--earth),#2E1507);border-radius:20px;padding:24px 22px;margin-bottom:20px;display:flex;align-items:center;gap:20px;}
@@ -235,15 +250,15 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .streak-info h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--cream);margin-bottom:6px;}
 .streak-info p{font-size:11px;color:rgba(240,232,213,.6);line-height:1.6;}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
-.stat-card{background:white;border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:18px;text-align:center;}
+.stat-card{background:white;border:1.5px solid rgba(184,134,11,.28);border-radius:14px;padding:18px;text-align:center;}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--earth);line-height:1;}
 .stat-label{font-size:9px;letter-spacing:2px;color:var(--sage);text-transform:uppercase;margin-top:4px;}
-.heatmap-wrap{background:white;border:1px solid rgba(201,168,76,.18);border-radius:14px;padding:18px;margin-bottom:20px;overflow-x:auto;}
+.heatmap-wrap{background:white;border:1.5px solid rgba(184,134,11,.28);border-radius:14px;padding:18px;margin-bottom:20px;overflow-x:auto;}
 .heatmap-title{font-size:10px;letter-spacing:2.5px;color:var(--earth);text-transform:uppercase;margin-bottom:12px;font-weight:600;}
 .heatmap-day{width:14px;height:14px;border-radius:3px;background:var(--parchment);cursor:pointer;transition:transform .1s;}
 .heatmap-day:active{transform:scale(1.3);}
 .hd-1{background:rgba(201,168,76,.25);}.hd-2{background:rgba(201,168,76,.5);}.hd-3{background:rgba(201,168,76,.75);}.hd-4{background:var(--gold);}
-.history-item{background:white;border:1px solid rgba(201,168,76,.15);border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;}
+.history-item{background:white;border:1.5px solid rgba(184,134,11,.25);border-radius:14px;padding:18px;margin-bottom:12px;cursor:pointer;}
 .history-item:active{box-shadow:0 4px 16px var(--shadow);}
 .history-date{font-size:10px;letter-spacing:2px;color:var(--sage);text-transform:uppercase;margin-bottom:6px;}
 .history-summary{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--earth);margin-bottom:8px;}
@@ -277,7 +292,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 /* ── TOAST & EMPTY ── */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--earth);color:var(--cream);padding:10px 22px;border-radius:30px;font-size:12px;letter-spacing:1px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:300;white-space:nowrap;}
 .toast.show{opacity:1;}
-.empty-state{text-align:center;padding:40px 20px;color:#8a7a6a;}
+.empty-state{text-align:center;padding:40px 20px;color:#5C4030;}
 .empty-state .es-icon{font-size:48px;margin-bottom:12px;}
 .empty-state p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;line-height:1.6;}
 </style>
@@ -343,7 +358,7 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 
   <!-- TODAY'S RECEIVED DECLARATIONS -->
   <div class="section-label">✨ Today's Received Declarations</div>
-  <p style="font-size:12px;color:#6a5a4a;margin-bottom:14px;line-height:1.6;">As you spend time with the Lord, add any declarations or words He speaks to you today. These are yours for this day.</p>
+  <p style="font-size:12px;color:#4A3020;margin-bottom:14px;line-height:1.6;">As you spend time with the Lord, add any declarations or words He speaks to you today. These are yours for this day.</p>
   <div id="todayDeclList"></div>
   <div class="add-decl-area">
     <textarea id="newDeclText" placeholder="Write a declaration the Lord has given you today...&#10;e.g. I am healed. I am provided for. This month I will complete what I start."></textarea>
@@ -480,13 +495,13 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
     <div class="stand-ref" style="margin-top:10px">Isaiah 42:6–7 · I am the hands and feet of Christ</div>
   </div>
   <div class="section-label">✦ Who did I stand with today?</div>
-  <p style="font-size:12px;color:#6a5a4a;margin-bottom:14px;line-height:1.6;">Find at least one person to reach, pray for, feed, help, or encourage.</p>
+  <p style="font-size:12px;color:#4A3020;margin-bottom:14px;line-height:1.6;">Find at least one person to reach, pray for, feed, help, or encourage.</p>
   <div class="stand-row">
     <input class="stand-input" id="standInput" type="text" placeholder="Name someone you stood with today..."/>
     <button class="stand-add" onclick="addPerson()">Add</button>
   </div>
   <div id="standList"></div>
-  <div style="background:var(--parchment);border-radius:14px;padding:20px;border:1px solid rgba(201,168,76,.2);margin-top:20px">
+  <div style="background:var(--parchment);border-radius:14px;padding:20px;border:2px solid rgba(184,134,11,.3);margin-top:20px">
     <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4vw,20px);font-style:italic;color:var(--earth);line-height:1.75;margin-bottom:10px">"She opens her hand to the poor and reaches out her hands to the needy."</div>
     <div style="font-size:10px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase">Proverbs 31:20</div>
   </div>
@@ -690,16 +705,16 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 // ════════════════════════════════════════
 //  IndexedDB
 // ════════════════════════════════════════
-const DB_NAME='MercyAltar',DB_VER=3,STORE='days',TASKS_STORE='tasks';
+const DB_NAME='MercyAltar',DB_VER=4,STORE='days',TASKS_STORE='tasks',DECL_STORE='declarations';
 let db=null;
 function openDB(){
   return new Promise((res,rej)=>{
     const r=indexedDB.open(DB_NAME,DB_VER);
     r.onupgradeneeded=e=>{
       const d=e.target.result;
-      // Always create stores if missing — never delete existing ones
       if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'dateKey'});
       if(!d.objectStoreNames.contains(TASKS_STORE))d.createObjectStore(TASKS_STORE,{keyPath:'id'});
+      if(!d.objectStoreNames.contains(DECL_STORE))d.createObjectStore(DECL_STORE,{keyPath:'id'});
     };
     r.onsuccess=e=>{db=e.target.result;res(db);};
     r.onerror=()=>rej(r.error);
@@ -710,6 +725,10 @@ function getDay(k){return new Promise(res=>{const tx=db.transaction(STORE,'reado
 function getAllDays(){return new Promise(res=>{const tx=db.transaction(STORE,'readonly');const r=tx.objectStore(STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([]);});}
 function saveTasks(tasksArr){return new Promise((res,rej)=>{const tx=db.transaction(TASKS_STORE,'readwrite');const store=tx.objectStore(TASKS_STORE);store.clear();tasksArr.forEach(t=>store.put(t));tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
 function getTasks(){return new Promise(res=>{const tx=db.transaction(TASKS_STORE,'readonly');const r=tx.objectStore(TASKS_STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([]);});}
+// Declarations — permanent store, never reset by day
+function getAllDeclarations(){return new Promise(res=>{const tx=db.transaction(DECL_STORE,'readonly');const r=tx.objectStore(DECL_STORE).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res([]);});}
+function putDeclaration(decl){return new Promise((res,rej)=>{const tx=db.transaction(DECL_STORE,'readwrite');tx.objectStore(DECL_STORE).put(decl);tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+function deleteDeclarationDB(id){return new Promise((res,rej)=>{const tx=db.transaction(DECL_STORE,'readwrite');tx.objectStore(DECL_STORE).delete(id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
 
 // ════════════════════════════════════════
 //  Date & State
@@ -725,12 +744,13 @@ let state={
   checks:{},
   farm:{},
   journals:{morning:'',evening:''},
-  todayDeclarations:[],  // [{text, source, ts}]
   people:[]
 };
 
 // tasks live separately (persist across days, carry forward)
 let tasks=[];
+// declarations live permanently — never tied to a single day
+let allDeclarations=[];
 
 // ════════════════════════════════════════
 //  Boot / Load
@@ -740,19 +760,21 @@ async function boot(){
   // Load today's day record
   const saved=await getDay(TODAY_KEY);
   if(saved) state={...state,...saved};
+  // Save today immediately so it always appears in history
+  await saveDay(state);
   // Load tasks (global, carry across days)
   const savedTasks=await getTasks();
   if(savedTasks.length){
     tasks=savedTasks;
-    // Migrate old tasks missing longterm/dailyLog fields
     tasks.forEach(t=>{
       if(t.longterm===undefined)t.longterm=false;
       if(!t.dailyLog)t.dailyLog={};
-      // Reset dailyDoneToday if last log wasn't today
       const lastDay=t.lastDailyDate||'';
       t.dailyDoneToday=(lastDay===TODAY_KEY&&!!t.dailyLog[TODAY_KEY]);
     });
   } else tasks=defaultTasks();
+  // Load permanent declarations
+  allDeclarations=await getAllDeclarations();
   // Load bible state
   loadBibleState();
   // Restore UI
@@ -764,18 +786,14 @@ async function boot(){
   if(state.declared){const btn=document.getElementById('declareBtn');btn.classList.add('declared');btn.textContent='✦ Declared. These truths stand over my life today.';}
   renderPeople();
   updateProgress();
-  // Wire up Enter key on declaration src input
+  // Wire up buttons
   document.getElementById('newDeclSrc').addEventListener('keydown',e=>{if(e.key==='Enter')addDeclaration();});
-  // Wire up Add Declaration button - use pointerdown + preventDefault to stop textarea blur
   const addDeclBtn=document.getElementById('addDeclBtn');
   addDeclBtn.addEventListener('pointerdown',function(e){e.preventDefault();});
   addDeclBtn.addEventListener('click',function(e){e.preventDefault();addDeclaration();});
-  // Wire up Declare button
   document.getElementById('declareBtn').addEventListener('click',function(e){e.preventDefault();declare();});
-  // Init notifications
   loadNotifSettings();
   scheduleAllNotifications();
-  // Init bible notes listener
   initBibleNotes();
 }
 
@@ -846,31 +864,44 @@ function addDeclaration(){
   const text=String(textEl.value||'').trim();
   const src=String(srcEl.value||'').trim();
   if(!text){showToast('Write a declaration first');return;}
-  state.todayDeclarations.push({id:uid(),text,source:src||'Today',ts:new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'})});
-  textEl.value='';
-  srcEl.value='';
+  const decl={id:uid(),text,source:src||'Today',ts:new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'}),date:TODAY_KEY};
+  allDeclarations.push(decl);
+  putDeclaration(decl);
+  textEl.value='';srcEl.value='';
   renderTodayDeclarations();
-  persist();
   showToast('Declaration added ✦');
 }
 
 function deleteDeclaration(id){
-  state.todayDeclarations=state.todayDeclarations.filter(d=>d.id!==id);
+  allDeclarations=allDeclarations.filter(d=>d.id!==id);
+  deleteDeclarationDB(id);
   renderTodayDeclarations();
-  persist();
 }
 
 function renderTodayDeclarations(){
   const list=document.getElementById('todayDeclList');
-  if(!state.todayDeclarations.length){list.innerHTML='';return;}
-  list.innerHTML=state.todayDeclarations.map(d=>`
-    <div class="today-decl-card received">
-      <div class="decl-body">
-        <p>${d.text}</p>
-        <small>✦ ${d.source} · ${d.ts}</small>
-      </div>
-      <button class="decl-del-btn" onclick="deleteDeclaration('${d.id}')">×</button>
-    </div>`).join('');
+  if(!allDeclarations.length){
+    list.innerHTML='<p style="font-size:12px;color:#5C4030;font-style:italic;font-family:\'Cormorant Garamond\',serif;margin-bottom:8px">No declarations yet — add one below.</p>';
+    return;
+  }
+  const sorted=[...allDeclarations].sort((a,b)=>b.date.localeCompare(a.date));
+  const groups={};
+  sorted.forEach(d=>{if(!groups[d.date])groups[d.date]=[];groups[d.date].push(d);});
+  list.innerHTML=Object.entries(groups).map(([date,decls])=>{
+    const dt=new Date(date+'T00:00:00');
+    const label=date===TODAY_KEY?'Today':dt.toLocaleDateString('en-KE',{weekday:'long',month:'long',day:'numeric'});
+    return `<div style="margin-bottom:14px">
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:8px;font-family:'Josefin Sans',sans-serif">${label}</div>
+      ${decls.map(d=>`
+        <div class="today-decl-card received">
+          <div class="decl-body">
+            <p>${esc(d.text)}</p>
+            <small>✦ ${esc(d.source)} · ${d.ts||''}</small>
+          </div>
+          <button class="decl-del-btn" onclick="deleteDeclaration('${d.id}')">×</button>
+        </div>`).join('')}
+    </div>`;
+  }).join('');
 }
 
 // ════════════════════════════════════════
@@ -978,7 +1009,7 @@ function updateTaskField(id,field,val){
 
 function renderTasks(){
   const list=document.getElementById('taskList');
-  if(!tasks.length){list.innerHTML='<p style="font-size:13px;color:#8a7a6a;padding:12px 0;font-style:italic">No assignments yet. Add one below.</p>';return;}
+  if(!tasks.length){list.innerHTML='<p style="font-size:13px;color:#5C4030;padding:12px 0;font-style:italic">No assignments yet. Add one below.</p>';return;}
   list.innerHTML=tasks.map(t=>{
     const streakDays=calcDailyStreak(t);
     const dailyRow=t.longterm&&!t.complete?`
@@ -1376,7 +1407,7 @@ function nextChapter(){
 function renderBibleReadList(){
   const el=document.getElementById('bibleReadList');
   const entries=Object.entries(bibleState.readLog);
-  if(!entries.length){el.innerHTML='<span style="font-size:12px;color:#8a7a6a;font-style:italic">No chapters marked yet — start reading and mark each one as you go.</span>';return;}
+  if(!entries.length){el.innerHTML='<span style="font-size:12px;color:#5C4030;font-style:italic">No chapters marked yet — start reading and mark each one as you go.</span>';return;}
   // Sort by date then book order
   entries.sort((a,b)=>a[1].localeCompare(b[1]));
   el.innerHTML=entries.map(([key,date])=>
