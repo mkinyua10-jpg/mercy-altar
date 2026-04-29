@@ -73,8 +73,8 @@ body{background:var(--cream);color:var(--deep);font-family:'Josefin Sans',sans-s
 .declare-btn.declared{background:var(--sage);color:white;box-shadow:0 3px 12px rgba(74,140,85,.35);}
 
 /* ── TODAY'S DECLARATIONS (custom, editable) ── */
-.today-decl-card{background:white;border:2px solid rgba(184,134,11,.3);border-radius:14px;padding:18px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;position:relative;}
-.today-decl-card.received{border-left:4px solid var(--gold);}
+.today-decl-card{background:white;border:1.5px solid rgba(184,134,11,.25);border-left:5px solid var(--gold);border-radius:0 14px 14px 0;padding:16px 16px 16px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;position:relative;box-shadow:0 1px 6px var(--shadow);}
+.today-decl-card.received{border-left-color:var(--gold);}
 .today-decl-card .decl-body{flex:1;}
 .today-decl-card .decl-body p{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--earth);line-height:1.55;margin-bottom:4px;}
 .today-decl-card .decl-body small{font-size:10px;letter-spacing:1.5px;color:var(--sage);text-transform:uppercase;}
@@ -775,6 +775,24 @@ async function boot(){
   } else tasks=defaultTasks();
   // Load permanent declarations
   allDeclarations=await getAllDeclarations();
+  // Migrate old declarations stored inside day records
+  if(!allDeclarations.length){
+    const allDays=await getAllDays();
+    const migrated=[];
+    allDays.forEach(day=>{
+      if(day.todayDeclarations&&day.todayDeclarations.length){
+        day.todayDeclarations.forEach(d=>{
+          const decl={...d,date:day.dateKey||TODAY_KEY};
+          if(!decl.id)decl.id=uid();
+          migrated.push(decl);
+        });
+      }
+    });
+    if(migrated.length){
+      for(const d of migrated)await putDeclaration(d);
+      allDeclarations=migrated;
+    }
+  }
   // Load bible state
   loadBibleState();
   // Restore UI
